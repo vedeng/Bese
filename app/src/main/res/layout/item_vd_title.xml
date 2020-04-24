@@ -8,8 +8,8 @@
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/pt_30"
+            android:textSize="15sp"
             android:textColor="@color/color_333"
-            android:padding="@dimen/px_10"/>
+            android:padding="5dp"/>
     
 </LinearLayout>

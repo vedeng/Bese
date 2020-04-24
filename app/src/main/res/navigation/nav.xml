@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.ved.ui.fragment.MainFragment"
+        android:label="MainFragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_buttonFragment"
+            app:destination="@id/buttonFragment"/>
+        <action
+            android:id="@+id/action_mainFragment_to_badgeFragment"
+            app:destination="@id/badgeFragment"/>
+        <action
+            android:id="@+id/action_mainFragment_to_fontIconFragment"
+            app:destination="@id/fontIconFragment"/>
+        <action
+            android:id="@+id/action_mainFragment_to_lottieFragment"
+            app:destination="@id/lottieFragment"/>
+        <action
+            android:id="@+id/action_mainFragment_to_richTextFragment"
+            app:destination="@id/richTextFragment"/>
+        <action
+            android:id="@+id/action_mainFragment_to_bannerFragment"
+            app:destination="@id/bannerFragment"/>
+        <action
+            android:id="@+id/action_mainFragment_to_inputViewFragment"
+            app:destination="@id/inputViewFragment"/>
+        <action
+            android:id="@+id/action_mainFragment_to_numEditorFragment"
+            app:destination="@id/numEditorFragment"/>
+        <action
+            android:id="@+id/action_mainFragment_to_timerDownFragment"
+            app:destination="@id/timerDownFragment"/>
+        <action
+            android:id="@+id/action_mainFragment_to_dialogListFragment"
+            app:destination="@id/dialogListFragment"/>
+        <action
+            android:id="@+id/action_mainFragment_to_bottomDialogFragment"
+            app:destination="@id/bottomDialogFragment"/>
+        <action
+            android:id="@+id/action_mainFragment_to_topDialogFragment"
+            app:destination="@id/topDialogFragment"/>
+        <action
+            android:id="@+id/action_mainFragment_to_toastListFragment"
+            app:destination="@id/toastListFragment"/>
+        <action
+            android:id="@+id/action_mainFragment_to_popupFragment"
+            app:destination="@id/popupFragment"/>
+
+        <action
+            android:id="@+id/action_mainFragment_to_locationFragment"
+            app:destination="@id/locationFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/toolFragment"
+        android:name="com.ved.ui.fragment.main.ToolFragment"
+        android:label="ToolFragment" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/buttonFragment"
+        android:name="com.ved.ui.fragment.element.ButtonFragment"
+        android:label="ButtonFragment" />
+
+    <fragment
+        android:id="@+id/badgeFragment"
+        android:name="com.ved.ui.fragment.element.BadgeFragment"
+        android:label="BadgeFragment" />
+
+    <fragment
+        android:id="@+id/fontIconFragment"
+        android:name="com.ved.ui.fragment.element.FontIconFragment"
+        android:label="FontIconFragment" />
+
+    <fragment
+        android:id="@+id/richTextFragment"
+        android:name="com.ved.ui.fragment.element.RichTextFragment"
+        android:label="RichTextFragment" />
+
+    <fragment
+        android:id="@+id/lottieFragment"
+        android:name="com.ved.ui.fragment.element.LottieFragment"
+        android:label="LottieFragment" />
+
+    <fragment
+        android:id="@+id/bannerFragment"
+        android:name="com.ved.ui.fragment.component.BannerFragment"
+        android:label="BannerFragment" />
+
+    <fragment
+        android:id="@+id/inputViewFragment"
+        android:name="com.ved.ui.fragment.component.InputViewFragment"
+        android:label="InputViewFragment" />
+
+    <fragment
+        android:id="@+id/numEditorFragment"
+        android:name="com.ved.ui.fragment.component.NumEditorFragment"
+        android:label="NumEditorFragment" />
+
+    <fragment
+        android:id="@+id/timerDownFragment"
+        android:name="com.ved.ui.fragment.component.TimerDownFragment"
+        android:label="TimerDownFragment" />
+
+    <fragment
+        android:id="@+id/dialogListFragment"
+        android:name="com.ved.ui.fragment.dialog.DialogListFragment"
+        android:label="DialogListFragment" >
+        <action
+            android:id="@+id/action_dialogListFragment_to_singleDialogFragment"
+            app:destination="@id/singleDialogFragment"/>
+        <action
+            android:id="@+id/action_dialogListFragment_to_doubleDialogFragment"
+            app:destination="@id/doubleDialogFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/singleDialogFragment"
+        android:name="com.ved.ui.fragment.dialog.SingleDialogFragment"
+        android:label="SingleDialogFragment" />
+
+    <fragment
+        android:id="@+id/doubleDialogFragment"
+        android:name="com.ved.ui.fragment.dialog.DoubleDialogFragment"
+        android:label="DoubleDialogFragment" />
+
+    <fragment
+        android:id="@+id/bottomDialogFragment"
+        android:name="com.ved.ui.fragment.dialog.BottomDialogFragment"
+        android:label="BottomDialogFragment" />
+
+    <fragment
+        android:id="@+id/topDialogFragment"
+        android:name="com.ved.ui.fragment.dialog.TopDialogFragment"
+        android:label="TopDialogFragment" />
+
+    <fragment
+        android:id="@+id/toastListFragment"
+        android:name="com.ved.ui.fragment.dialog.ToastListFragment"
+        android:label="ToastListFragment" >
+        <action
+            android:id="@+id/action_toastListFragment_to_systemToastFragment"
+            app:destination="@id/systemToastFragment"/>
+        <action
+            android:id="@+id/action_toastListFragment_to_iconToastFragment"
+            app:destination="@id/iconToastFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/systemToastFragment"
+        android:name="com.ved.ui.fragment.dialog.SystemToastFragment"
+        android:label="SystemToastFragment" />
+
+    <fragment
+        android:id="@+id/iconToastFragment"
+        android:name="com.ved.ui.fragment.dialog.IconToastFragment"
+        android:label="IconToastFragment" />
+
+    <fragment
+        android:id="@+id/popupFragment"
+        android:name="com.ved.ui.fragment.dialog.PopupFragment"
+        android:label="PopupFragment" />
+
+    <fragment
+        android:id="@+id/locationFragment"
+        android:name="com.ved.ui.fragment.tool.LocationFragment"
+        android:label="LocationFragment" />
+
+</navigation>

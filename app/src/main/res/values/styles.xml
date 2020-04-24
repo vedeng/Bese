@@ -2,10 +2,38 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:windowBackground">@color/color_fff</item>
+        <item name="android:windowAnimationStyle">@style/Animation_Activity_Vertical</item>
+        <item name="android:statusBarColor">@android:color/white</item>
+    </style>
+
+    <style name="VerticalTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:windowBackground">@color/color_fff</item>
+        <item name="android:windowAnimationStyle">@style/Animation_Activity_Vertical</item>
+        <item name="android:statusBarColor">@android:color/white</item>
+    </style>
+
+    <style name="ExitFadeTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:windowBackground">@color/color_fff</item>
+        <item name="android:windowAnimationStyle">@style/Animation_Activity_Exit_Fade</item>
+        <item name="android:statusBarColor">@android:color/white</item>
+    </style>
+
+    <style name="Animation_Activity_Vertical" parent="@android:style/Animation.Activity">
+    <item name="android:activityOpenEnterAnimation">@anim/anim_above_in</item>
+    <item name="android:activityOpenExitAnimation">@anim/anim_below_out</item>
+    <item name="android:activityCloseEnterAnimation">@anim/anim_below_in</item>
+    <item name="android:activityCloseExitAnimation">@anim/anim_above_out</item>
+    </style>
+
+    <style name="Animation_Activity_Exit_Fade" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@null</item>
+        <item name="android:activityOpenExitAnimation">@null</item>
+        <item name="android:activityCloseEnterAnimation">@null</item>
+        <item name="android:activityCloseExitAnimation">@anim/anim_fade_above_out</item>
     </style>
 
 </resources>

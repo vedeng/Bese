@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fitsSystemWindows="true"
+    android:background="@color/color_eee"
+    android:orientation="vertical">
+
+    <include layout="@layout/base_title_bar" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.bese.widget.button.TextButton
+                android:id="@+id/bottom_dialog1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="30dp"
+                android:padding="3dp"
+                android:text="底部弹窗1"
+                android:textColor="@color/color_fff"
+                android:textSize="18sp"
+                app:buttonBgColor="#0099ff"
+                app:buttonBgColorPressed="#0099dd"
+                app:buttonRadius="3dp" />
+
+            <com.bese.widget.button.TextButton
+                android:id="@+id/bottom_dialog2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="30dp"
+                android:padding="3dp"
+                android:text="底部弹窗2"
+                android:textColor="@color/color_fff"
+                android:textSize="18sp"
+                app:buttonBgColor="#0099ff"
+                app:buttonBgColorPressed="#0099dd"
+                app:buttonRadius="3dp" />
+
+            <include layout="@layout/base_content" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

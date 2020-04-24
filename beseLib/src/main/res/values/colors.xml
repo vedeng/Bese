@@ -1,43 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
-
-
-    <color name="color_ced3d9">#ced3d9</color>
-    <color name="color_005799">#005799</color>
-    <color name="color_e6ebf2">#e6ebf2</color>
-    <color name="color_c2c6cc">#c2c6cc</color>
-    <color name="color_f5f7fa">#f5f7fa</color>
-    <color name="color_ff3300">#ff3300</color>
-    <color name="color_ff3333">#ff3333</color>
-    <color name="color_ff6600">#ff6600</color>
-    <color name="color_007aff">#007aff</color>
-    <color name="color_0066cc">#0066cc</color>
-    <color name="color_e5f0ff">#e5f0ff</color>
-    <color name="color_eeffe5">#eeffe5</color>
-    <color name="color_00cc00">#00cc00</color>
-    <color name="color_edeff2">#edeff2</color>
-    <color name="color_ff9900">#ff9900</color>
-    <color name="color_ff6200">#ff6200</color>
-    <color name="color_dadfe5">#dadfe5</color>
-    <color name="color_fff0e5">#fff0e5</color>
-    <color name="color_d9f0ff">#d9f0ff</color>
-    <color name="color_8bd1ff">#8bd1ff</color>
-    <color name="color_41b035">#41b035</color>
-    <color name="color_515659">#515659</color>
-    <color name="color_0fc812">#0fc812</color>
-    <color name="color_ff8b00">#ff8b00</color>
-    <color name="color_d3321b">#d3321b</color>
-    <color name="color_1e1e1e">#1e1e1e</color>
-    <color name="color_e52243">#e52243</color>
-    <color name="color_c3a96a">#c3a96a</color>
-    <color name="color_ffeecc">#ffeecc</color>
-    <color name="color_ddffcc">#ddffcc</color>
-    <color name="color_0099ff">#0099ff</color>
-    <color name="color_0090f0">#0090f0</color>
-
 
     <!-- 连续色值-->
     <color name="color_ffe5e5">#ffe5e5</color>

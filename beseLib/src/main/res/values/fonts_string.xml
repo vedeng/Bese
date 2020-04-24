@@ -103,6 +103,10 @@
     <string name="icon_about_us">\ue965</string>
     <string name="icon_qzone2">\ue966</string>
     <string name="icon_contacts">\ue967</string>
-    <string name="icon_customer_service">\ue968</string>
+    <string name="icon_cus">\ue968</string>
+    <string name="icon_verify2">\ue97b</string>
+    <string name="icon_brands">\ue96a</string>
+    <string name="icon_erweima1">\ue97d</string>
+    <string name="icon_erweima2">\ue97e</string>
 
 </resources>

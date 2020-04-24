@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/color_fff"
+    android:orientation="vertical">
+
+    <include layout="@layout/base_title_bar" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:text="弹窗 - 仿iOS" />
+
+                <com.bese.view.WrapLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+
+                    <com.bese.widget.button.TextButton
+                        android:id="@+id/dialog_ios_two"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="15dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:text="双按钮"
+                        android:textColor="@color/color_fff"
+                        app:buttonBgColor="#0099ff"
+                        app:buttonBgColorPressed="#0099dd"
+                        app:buttonRadius="20dp" />
+
+                    <com.bese.widget.button.TextButton
+                        android:id="@+id/dialog_ios_two_no_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="15dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:text="无标题双按钮"
+                        android:textColor="@color/color_fff"
+                        app:buttonBgColor="#0099ff"
+                        app:buttonBgColorPressed="#0099dd"
+                        app:buttonRadius="20dp" />
+
+                    <com.bese.widget.button.TextButton
+                        android:id="@+id/dialog_ios_one"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginStart="10dp"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="15dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:text="单按钮"
+                        android:textColor="@color/color_fff"
+                        app:buttonBgColor="#0099ff"
+                        app:buttonBgColorPressed="#0099dd"
+                        app:buttonRadius="20dp" />
+
+                    <com.bese.widget.button.TextButton
+                        android:id="@+id/dialog_ios_one_no_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="15dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:text="无标题单按钮"
+                        android:textColor="@color/color_fff"
+                        app:buttonBgColor="#0099ff"
+                        app:buttonBgColorPressed="#0099dd"
+                        app:buttonRadius="20dp" />
+
+                    <com.bese.widget.button.TextButton
+                        android:id="@+id/dialog_ios_diy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="15dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:text="自定义弹窗"
+                        android:textColor="@color/color_fff"
+                        app:buttonBgColor="#0099ff"
+                        app:buttonBgColorPressed="#0099dd"
+                        app:buttonRadius="20dp" />
+
+                </com.bese.view.WrapLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:text="简单弹窗样式 - 凸显按钮" />
+
+                <com.bese.view.WrapLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+
+                    <com.bese.widget.button.TextButton
+                        android:id="@+id/dialog_line_blue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="15dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:text="确认按钮"
+                        android:textColor="@color/color_fff"
+                        app:buttonBgColor="#0099ff"
+                        app:buttonBgColorPressed="#0099dd"
+                        app:buttonRadius="20dp" />
+
+                    <com.bese.widget.button.TextButton
+                        android:id="@+id/dialog_line_delete"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="15dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:text="删除按钮"
+                        android:textColor="@color/color_fff"
+                        app:buttonBgColor="#0099ff"
+                        app:buttonBgColorPressed="#0099dd"
+                        app:buttonRadius="20dp" />
+
+                    <com.bese.widget.button.TextButton
+                        android:id="@+id/dialog_line_delete_no_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="15dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:text="无标题删除按钮"
+                        android:textColor="@color/color_fff"
+                        app:buttonBgColor="#0099ff"
+                        app:buttonBgColorPressed="#0099dd"
+                        app:buttonRadius="20dp" />
+
+                    <com.bese.widget.button.TextButton
+                        android:id="@+id/dialog_line_blue_no_cancel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="15dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:text="单确认按钮"
+                        android:textColor="@color/color_fff"
+                        app:buttonBgColor="#0099ff"
+                        app:buttonBgColorPressed="#0099dd"
+                        app:buttonRadius="20dp" />
+
+                    <com.bese.widget.button.TextButton
+                        android:id="@+id/dialog_line_blue_no_cancel_no_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="15dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:text="单确认无标题按钮"
+                        android:textColor="@color/color_fff"
+                        app:buttonBgColor="#0099ff"
+                        app:buttonBgColorPressed="#0099dd"
+                        app:buttonRadius="20dp" />
+
+                </com.bese.view.WrapLayout>
+
+            </LinearLayout>
+
+            <include layout="@layout/base_content" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

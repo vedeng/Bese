@@ -9,7 +9,6 @@ import androidx.annotation.ColorInt
 import com.bese.R
 
 /**
- * Created by dell on 2017/12/31.
  * 绘制虚线自定义控件
  */
 class DashView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : View(context, attrs, defStyleAttr) {
@@ -40,7 +39,7 @@ class DashView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
     }
 
     init {
-        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.DashView)
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.DashView, defStyleAttr, 0)
         dashWidth = typedArray.getDimension(R.styleable.DashView_dashWidth, DASH_WIDTH)
         lineWidth = typedArray.getDimension(R.styleable.DashView_solidWidth, LINE_WIDTH)
         lineThick = typedArray.getDimension(R.styleable.DashView_solidThick, LINE_HEIGHT)
@@ -70,9 +69,9 @@ class DashView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         widthSize = MeasureSpec.getSize(widthMeasureSpec) - paddingLeft - paddingRight
         heightSize = MeasureSpec.getSize(heightMeasureSpec) - paddingTop - paddingBottom
-        if (dashOrientation == ORIENTATION_HORIZONTAL) { ////不管在布局文件中虚线高度设置为多少，控件的高度统一设置为线段的高度
+        if (dashOrientation == ORIENTATION_HORIZONTAL) {             // 不管在布局文件中虚线高度设置为多少，控件的高度统一设置为线段的高度
             setMeasuredDimension(widthSize, lineThick.toInt())
-        } else { //当为竖直方向时，控件宽度设置为虚线的高度
+        } else {                 //当为竖直方向时，控件宽度设置为虚线的高度
             setMeasuredDimension(lineThick.toInt(), heightSize)
         }
     }
@@ -87,7 +86,6 @@ class DashView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
 
     /**
      * 画水平方向虚线
-     * @param canvas
      */
     private fun drawHorizontalLine(canvas: Canvas) {
         var totalWidth = 0f
@@ -106,14 +104,13 @@ class DashView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
 
     /**
      * 画竖直方向虚线
-     * @param canvas
      */
     private fun drawVerticalLine(canvas: Canvas) {
         var totalWidth = 0f
         canvas.save()
         val pts = floatArrayOf(0f, 0f, 0f, lineWidth)
         //在画线之前需要先把画布向右平移半个线段高度的位置，目的就是为了防止线段只画出一半的高度
-//因为画线段的起点位置在线段左下角
+        //因为画线段的起点位置在线段左下角
         canvas.translate(lineThick / 2, 0f)
         while (totalWidth <= heightSize) {
             canvas.drawLines(pts, mPaint)

@@ -32,7 +32,8 @@ import java.util.Arrays
 /**
  * 输入框
  */
-class InputView @JvmOverloads constructor(private val mCtx: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : LinearLayout(mCtx, attrs, defStyleAttr), View.OnClickListener {
+class InputView @JvmOverloads constructor(private var mCtx: Context, var attrs: AttributeSet? = null, var defStyleAttr: Int = 0)
+    : LinearLayout(mCtx, attrs, defStyleAttr), View.OnClickListener {
 
     /**
      * 输入框
@@ -162,7 +163,7 @@ class InputView @JvmOverloads constructor(private val mCtx: Context, attrs: Attr
         )
         inputLayout?.layoutParams = params
 
-        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.InputView)
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.InputView, defStyleAttr, 0)
         val tipText = typedArray.getString(R.styleable.InputView_inputTipText)
         val tipColor = typedArray.getColor(R.styleable.InputView_inputTipColor,
             DEFAULT_TEXT_COLOR
@@ -525,11 +526,11 @@ class InputView @JvmOverloads constructor(private val mCtx: Context, attrs: Attr
      */
     fun changeEyeState() {
         if (isEyeOpen) {
-            eyeTextView?.text = mCtx.resources.getString(R.string.icon_hide)
+            eyeTextView?.text = "😣"
             inputView?.transformationMethod = PasswordTransformationMethod.getInstance()
             inputView?.setSelection(inputView?.length() ?: 0)
         } else {
-            eyeTextView?.text = mCtx.resources.getString(R.string.icon_display)
+            eyeTextView?.text = "👁"
             inputView?.transformationMethod = HideReturnsTransformationMethod.getInstance()
             inputView?.setSelection(inputView?.length() ?: 0)
         }

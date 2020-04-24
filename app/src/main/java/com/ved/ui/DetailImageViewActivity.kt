@@ -1,49 +1,19 @@
 package com.ved.ui
 
-import android.os.Bundle
 import android.util.Log
 import android.widget.SeekBar
 import com.ved.R
 import com.ved.ui.base.BaseActivity
-import kotlinx.android.synthetic.main.detail_imageview.*
+import kotlinx.android.synthetic.main.activity_imageview.*
 
 class DetailImageViewActivity : BaseActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.detail_imageview)
-        initView()
-        initImage()
-
-        /** 解决可横向滑动控件与DrawerLayout的滑动冲突 */
-        seek_radius?.setOnTouchListener { _, _ ->
-            drawer?.requestDisallowInterceptTouchEvent(true)
-            false
-        }
-        seek_radius?.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                Log.e("拖动===", "$progress")
-//                img_square?.setRatio(progress / 100f + 0.3f)
-
-
-                img_square?.setRadius(progress.toFloat())
-
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) { }
-
-            override fun onStopTrackingTouch(seekBar: SeekBar?) { }
-        })
+    override fun loadView() : Int {
+        return R.layout.activity_imageview
     }
 
-    private fun initImage() {
-        img_normal?.setImageResource(R.mipmap.seckill_bg)
-        img_square?.setImageResource(R.mipmap.seckill_bg)
-    }
-
-    override fun initView() {
-        initTitle("图片展示", false)
-
+    override fun init() {
+        initTitle("图片展示")
         val baseUseArea = "●部分使用限制图片宽高的场景"
 
         val baseUseRole = "●直接引用TextButton，定义属性：\n" +
@@ -61,6 +31,55 @@ class DetailImageViewActivity : BaseActivity() {
 
         initContent(baseUseArea, baseUseRole, baseInteract, baseStyle)
 
+        initListener()
+    }
+
+    private fun initListener() {
+
+        /** 解决可横向滑动控件与DrawerLayout的滑动冲突 */
+        seek_radius?.setOnTouchListener { _, _ ->
+            drawer?.requestDisallowInterceptTouchEvent(true)
+            false
+        }
+        seek_radius?.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                Log.e("拖动===", "$progress")
+//                img_square?.setRatio(progress / 100f + 0.3f)
+
+                img_square?.setRadius(progress.toFloat())
+            }
+            override fun onStartTrackingTouch(seekBar: SeekBar?) { }
+            override fun onStopTrackingTouch(seekBar: SeekBar?) { }
+        })
+
+        seek_radius_out?.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                Log.e("拖动===", "$progress")
+//                img_square?.setRatio(progress / 100f + 0.3f)
+                img_square?.setRadius(progress.toFloat() * 2)
+            }
+            override fun onStartTrackingTouch(seekBar: SeekBar?) { }
+            override fun onStopTrackingTouch(seekBar: SeekBar?) { }
+        })
+
+        ratio_0_5?.setOnClickListener {
+            img_square?.setRatio(0.5f)
+        }
+        ratio_1_0?.setOnClickListener {
+            img_square?.setRatio(1f)
+        }
+        ratio_2_0?.setOnClickListener {
+            img_square?.setRatio(2f)
+        }
+    }
+
+    override fun doExecute() {
+        initImage()
+    }
+
+    private fun initImage() {
+        img_normal?.setImageResource(R.mipmap.seckill_bg)
+        img_square?.setImageResource(R.mipmap.seckill_bg)
     }
 
 }

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/base_title_bar" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:text="类型"
+                    android:textColor="#0099ff"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="单行输入框"
+                    android:textSize="18sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/color_ddd" />
+
+                <com.bese.widget.inputview.InputView
+                    android:id="@+id/inputView_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:inputAllTextSize="18sp"
+                    app:inputHintText="请输入手机号"
+                    app:inputIsSingleLine="true"
+                    app:inputLainText="手机号码" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/color_ddd" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="多行输入框"
+                    android:textSize="18sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/color_ddd" />
+
+                <com.bese.widget.inputview.InputView
+                    android:id="@+id/inputView_detail_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:inputAllTextSize="18sp"
+                    app:inputHintText="请输入详情地址"
+                    app:inputIsSingleLine="false"
+                    app:inputLainText="详细地址" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/color_ddd" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="多行输入框（禁用状态）"
+                    android:textSize="18sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/color_ddd" />
+
+                <com.bese.widget.inputview.InputView
+                    android:id="@+id/inputView_detail_address_disallow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:editEnable="false"
+                    app:inputAllTextSize="18sp"
+                    app:inputHintText="请输入详情地址"
+                    app:inputIsSingleLine="false"
+                    app:inputLainText="白下高新技术产业园永顺路2号斯坦德电子商务大厦北楼3楼"
+                    app:inputTipText="详细地址" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/color_ddd" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="无标签输入框"
+                    android:textSize="18sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/color_ddd" />
+
+                <com.bese.widget.inputview.InputView
+                    android:id="@+id/inputView_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:inputAllTextSize="18sp"
+                    app:inputHintText="请输入昵称 "
+                    app:inputIsSingleLine="true" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/color_ddd" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="密码输入框"
+                    android:textSize="18sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/color_ddd" />
+
+                <com.bese.widget.inputview.InputView
+                    android:id="@+id/inputView_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:inputAllTextSize="18sp"
+                    app:inputBgColor="@color/trans_100"
+                    app:inputHintText="请输入密码"
+                    app:inputIsSingleLine="true"
+                    app:inputTipText="👁"
+                    app:inputType="password" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/color_ddd" />
+
+            </LinearLayout>
+
+            <include layout="@layout/base_content" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fitsSystemWindows="true"
+    android:background="@color/color_eee"
+    android:orientation="vertical">
+
+    <include layout="@layout/base_title_bar" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.bese.widget.button.BorderTextButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:padding="3dp"
+                    android:text="登录"
+                    android:textColor="#0099ff"
+                    android:textSize="18sp"
+                    app:borderLineColor="#0099dd"
+                    app:borderLineSize="1dp"
+                    app:borderButtonBgColor="@color/color_fff"
+                    app:borderButtonBgColorPressed="@color/color_eee"
+                    app:borderButtonRadius="3dp" />
+
+                <com.bese.widget.button.TextButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginBottom="30dp"
+                    android:padding="3dp"
+                    android:text="立即注册"
+                    android:textColor="@color/color_fff"
+                    android:textSize="18sp"
+                    app:buttonBgColor="#0099ff"
+                    app:buttonBgColorPressed="#0099dd"
+                    app:buttonRadius="3dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_eee"
+                    android:gravity="center_vertical|right"
+                    android:orientation="horizontal">
+
+                    <com.bese.widget.button.TextButton
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="12dp"
+                        android:paddingBottom="12dp"
+                        android:text="加入购物车"
+                        android:textColor="@color/color_fff"
+                        android:textSize="16sp"
+                        app:buttonBgColor="@color/color_ff9500" />
+
+                    <com.bese.widget.button.TextButton
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="12dp"
+                        android:paddingBottom="12dp"
+                        android:text="立即购买"
+                        android:textColor="@color/color_fff"
+                        android:textSize="16sp"
+                        app:buttonBgColor="@color/color_ff6633" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/color_fff"
+                    android:gravity="bottom"
+                    android:orientation="horizontal"
+                    android:paddingTop="5dp">
+
+                    <com.bese.widget.button.TextButton
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:paddingTop="6dp"
+                        android:paddingBottom="6dp"
+                        android:text="保存"
+                        android:textColor="@color/color_fff"
+                        app:buttonBgColor="@color/color_ff9500"
+                        app:buttonBgColorPressed="@color/color_ff6633"
+                        app:buttonRadius="3dp" />
+
+                    <com.bese.widget.button.TextButton
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:text="保存"
+                        android:textColor="@color/color_fff"
+                        android:textSize="16sp"
+                        app:buttonBgColor="#0099ff"
+                        app:buttonBgColorPressed="#0099dd"
+                        app:buttonRadius="3dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="@color/color_fff"
+                    android:orientation="vertical">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/color_ddd" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_fff"
+                    android:gravity="right"
+                    android:orientation="horizontal">
+
+                    <com.bese.widget.button.BorderTextButton
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:padding="8dp"
+                        android:text="立即使用"
+                        android:textColor="@color/color_ff6633"
+                        android:textSize="16sp"
+                        app:borderLineColor="@color/color_ff9500"
+                        app:borderLineSize="1dp"
+                        app:borderButtonRadius="30dp" />
+
+                    <com.bese.widget.button.TextButton
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_marginStart="10dp"
+                        android:padding="8dp"
+                        android:text="新增"
+                        android:textColor="@color/color_fff"
+                        android:textSize="16sp"
+                        app:buttonBgColor="#0099ff"
+                        app:buttonRadius="30dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <include layout="@layout/base_content" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

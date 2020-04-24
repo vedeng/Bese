@@ -8,15 +8,15 @@ import android.graphics.drawable.StateListDrawable
 import android.graphics.drawable.shapes.RoundRectShape
 import android.util.AttributeSet
 import android.view.Gravity
-import androidx.annotation.ColorRes
+import androidx.annotation.ColorInt
 import androidx.appcompat.widget.AppCompatTextView
-import androidx.core.content.ContextCompat
 import com.bese.R
 
 /**
  * 简单文字按钮控件：可定义按钮背景和按下颜色
  */
-class TextButton @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : AppCompatTextView(context, attrs, defStyleAttr) {
+class TextButton @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
+    : AppCompatTextView(context, attrs, defStyleAttr) {
 
     companion object {
         private const val SHADOW_WIDTH_DEF = 0
@@ -49,7 +49,7 @@ class TextButton @JvmOverloads constructor(context: Context, attrs: AttributeSet
     private var pressedDrawable: Drawable? = null
 
     init {
-        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.TextButton)
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.TextButton, defStyleAttr, 0)
         cornerRadius = typedArray.getDimension(R.styleable.TextButton_buttonRadius, CORNER_RADIUS_DEF.toFloat())
         bgColor = typedArray.getColor(R.styleable.TextButton_buttonBgColor, BG_COLOR_DEF)
         bgColorPressed = typedArray.getColor(R.styleable.TextButton_buttonBgColorPressed, BG_COLOR_PRESSED_DEF)
@@ -69,12 +69,12 @@ class TextButton @JvmOverloads constructor(context: Context, attrs: AttributeSet
         updateDrawable()
     }
 
-    fun setBgColor(@ColorRes bgColor: Int) {
-        this.bgColor = ContextCompat.getColor(context, bgColor)
+    fun setBgColor(@ColorInt bgColor: Int) {
+        this.bgColor = bgColor
     }
 
-    fun setBgColorPressed(@ColorRes pressBgColor: Int) {
-        this.bgColorPressed = ContextCompat.getColor(context, pressBgColor)
+    fun setBgColorPressed(@ColorInt pressBgColor: Int) {
+        this.bgColorPressed = pressBgColor
     }
 
     /**

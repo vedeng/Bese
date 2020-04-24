@@ -4,6 +4,8 @@
     <declare-styleable name="ImageRectView">
         <!--宽高比，1：正方形，2.0：瘦高图，0.5：扁图-->
         <attr name="squareRatio" format="float"/>
+        <!--自适应宽高比：开启自适应宽高比会忽略宽高比设定，适用于使用未知图片大小的自适应场景-->
+        <attr name="autoWrapRatio" format="boolean"/>
         <!--圆角大小-->
         <attr name="squareRadius" format="dimension"/>
         <!--圆角1大小-->
@@ -94,14 +96,9 @@
     <declare-styleable name="NumEditor">
         <attr name="editable" format="boolean"/>
         <attr name="minNumZero" format="boolean"/>
-        <attr name="buttonWidth" format="dimension" />
-        <attr name="editorPaddingH" format="dimension" />
-        <attr name="editorPaddingV" format="dimension" />
-        <attr name="buttonSize" format="dimension" />
-        <attr name="numberWidth" format="dimension" />
-        <attr name="numberSize" format="dimension" />
-        <attr name="numberColor" format="color"/>
+        <attr name="inputMinWidth" format="dimension"/>
     </declare-styleable>
+
     <declare-styleable name="HVScrollView">
         <!--水平内容宽度是否充满，默认false自适应-->
         <attr name="fillViewportH" format="boolean" />

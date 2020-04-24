@@ -5,7 +5,7 @@ apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId "com.ved"
         minSdkVersion 21
@@ -14,12 +14,13 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         ndk { abiFilters 'armeabi', 'armeabi-v7a', 'x86' }
-        flavorDimensions "product"
+        flavorDimensions "bese"
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
         }
     }
     androidExtensions {
@@ -39,10 +40,12 @@ android {
     productFlavors {
         pro {
             manifestPlaceholders = [ENV_SERVICE: name, APP_LABEL: "VEUI库", APP_ICON: "@mipmap/ic_launcher"]
+            flavorDimensions "bese"
         }
         exp {
             applicationIdSuffix ".exam"     // 测试环境下更改包名，防止数据混乱。如不需要，可注释掉
             manifestPlaceholders = [ENV_SERVICE: name, APP_LABEL: "VEUI-Test", APP_ICON: "@mipmap/ic_launcher"]
+            flavorDimensions "bese"
         }
     }
 
@@ -53,6 +56,15 @@ android {
         }
     }
 
+    // debug 配置签名，省去正式包与测试包切换包名冲突需要卸载的麻烦
+    signingConfigs {
+        debug {
+            storeFile file('bese_sign.jks')
+            storePassword "Bese2020"
+            keyAlias "Bese"
+            keyPassword "Bese2020"
+        }
+    }
 }
 
 dependencies {
@@ -61,8 +73,19 @@ dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    // JetPack-Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:2.2.2"
+    implementation "androidx.navigation:navigation-ui-ktx:2.2.2"
+
+    // JetPack-Lifecycle
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
+    // JetPack-ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
+    // JetPack-LiveData
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
 
 }

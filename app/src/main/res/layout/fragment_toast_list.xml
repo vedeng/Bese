@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fitsSystemWindows="true"
+    android:background="@color/color_eee"
+    android:orientation="vertical">
+
+    <include layout="@layout/base_title_bar"/>
+
+    <TextView
+        android:id="@+id/tv_toast_system_button"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/rct_sld_r10"
+        android:backgroundTint="@color/color_fff"
+        android:gravity="center"
+        android:text="系统吐司"/>
+
+    <TextView
+        android:id="@+id/tv_toast_icon_button"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/rct_sld_r10"
+        android:backgroundTint="@color/color_fff"
+        android:gravity="center"
+        android:text="带图标吐司"/>
+
+</LinearLayout>

@@ -17,4 +17,9 @@ object SPConfig {
      */
     val LOGIN_PHONE = "login_phone"
 
+    /**
+     * 已经打开过APP的标记
+     */
+    val HAS_OPEN_ONCE = "has_open_once"
+
 }

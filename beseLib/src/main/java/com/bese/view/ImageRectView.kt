@@ -1,14 +1,14 @@
 package com.bese.view
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewParent
-import android.widget.ImageView
+import androidx.appcompat.widget.AppCompatImageView
 import com.bese.R
-
 
 /**
  * Square ImageView Component
@@ -17,11 +17,13 @@ import com.bese.R
  *      Inverse ratio will be compiled to negative number that apply to {Inverse Proportional Function}.
  *
  * @attr squareRatio R.SquareImageView_squareRatio
- * @author Fires 2019.12.28
  */
-class ImageRectView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : ImageView(context, attrs, defStyleAttr) {
+class ImageRectView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
+    : AppCompatImageView(context, attrs, defStyleAttr) {
 
     private var mRatio = 1f
+
+    private var autoWrapRatio = false
 
     private var hasCorner = false
 
@@ -31,13 +33,15 @@ class ImageRectView @JvmOverloads constructor(context: Context, attrs: Attribute
     private var radius = floatArrayOf()
 
     init {
-
+        // EVEN_ODD  把Path外部丢弃，保留内部； INVERSE_EVEN_ODD  把Path内部丢弃，保留外部
         mPath.fillType = Path.FillType.INVERSE_EVEN_ODD
+        // 抗锯齿
         mPaint.isAntiAlias = true
 
         scaleType = ScaleType.CENTER_CROP
 
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.ImageRectView)
+        autoWrapRatio = typedArray.getBoolean(R.styleable.ImageRectView_autoWrapRatio, false)
         val ratio = typedArray.getFloat(R.styleable.ImageRectView_squareRatio, 1f)
         val rad = typedArray.getDimension(R.styleable.ImageRectView_squareRadius, 0f)
         var rad1 = typedArray.getDimension(R.styleable.ImageRectView_squareLeftTopRadius, 0f)
@@ -113,11 +117,15 @@ class ImageRectView @JvmOverloads constructor(context: Context, attrs: Attribute
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        val widthSize = MeasureSpec.makeMeasureSpec(measuredWidth, MeasureSpec.EXACTLY)
-        val heightSize = MeasureSpec.makeMeasureSpec((measuredWidth * mRatio).toInt(), MeasureSpec.EXACTLY)
-        setMeasuredDimension(widthSize, heightSize)
+        if (!autoWrapRatio) {
+            val widthSize = MeasureSpec.makeMeasureSpec(measuredWidth, MeasureSpec.EXACTLY)
+            val heightSize =
+                MeasureSpec.makeMeasureSpec((measuredWidth * mRatio).toInt(), MeasureSpec.EXACTLY)
+            setMeasuredDimension(widthSize, heightSize)
+        }
     }
 
+    @SuppressLint("DrawAllocation")
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         if (hasCorner) {

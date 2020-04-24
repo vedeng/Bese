@@ -3,78 +3,78 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/px_30">
+    android:paddingBottom="15dp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/px_20"
-        android:padding="@dimen/px_30"
+        android:layout_marginTop="10dp"
+        android:padding="15dp"
         android:text="使用场景"
-        android:textColor="@color/color_0099ff"
-        android:textSize="@dimen/pt_48" />
+        android:textColor="#0099ff"
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/tv_use_area"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="@dimen/px_30"
-        android:paddingTop="@dimen/px_10"
-        android:paddingEnd="@dimen/px_30"
-        android:paddingBottom="@dimen/px_10" />
+        android:paddingStart="15dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="15dp"
+        android:paddingBottom="5dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/px_20"
-        android:padding="@dimen/px_30"
+        android:layout_marginTop="10dp"
+        android:padding="15dp"
         android:text="使用规则"
-        android:textColor="@color/color_0099ff"
-        android:textSize="@dimen/pt_48" />
+        android:textColor="#0099ff"
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/tv_use_role"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="@dimen/px_30"
-        android:paddingTop="@dimen/px_10"
-        android:paddingEnd="@dimen/px_30"
-        android:paddingBottom="@dimen/px_10" />
+        android:paddingStart="15dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="15dp"
+        android:paddingBottom="5dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/px_20"
-        android:padding="@dimen/px_30"
+        android:layout_marginTop="10dp"
+        android:padding="15dp"
         android:text="交互"
-        android:textColor="@color/color_0099ff"
-        android:textSize="@dimen/pt_48" />
+        android:textColor="#0099ff"
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/tv_interact"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="@dimen/px_30"
-        android:paddingTop="@dimen/px_10"
-        android:paddingEnd="@dimen/px_30"
-        android:paddingBottom="@dimen/px_10" />
+        android:paddingStart="15dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="15dp"
+        android:paddingBottom="5dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/px_20"
-        android:padding="@dimen/px_30"
+        android:layout_marginTop="10dp"
+        android:padding="15dp"
         android:text="样式"
-        android:textColor="@color/color_0099ff"
-        android:textSize="@dimen/pt_48" />
+        android:textColor="#0099ff"
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/tv_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="@dimen/px_30"
-        android:paddingTop="@dimen/px_10"
-        android:paddingEnd="@dimen/px_30"
-        android:paddingBottom="@dimen/px_10" />
+        android:paddingStart="15dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="15dp"
+        android:paddingBottom="5dp" />
 
 </LinearLayout>

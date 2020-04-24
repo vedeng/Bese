@@ -10,16 +10,15 @@ import android.graphics.drawable.StateListDrawable
 import android.graphics.drawable.shapes.RoundRectShape
 import android.util.AttributeSet
 import android.view.Gravity
-
-import androidx.annotation.ColorRes
+import androidx.annotation.ColorInt
 import androidx.appcompat.widget.AppCompatTextView
-import androidx.core.content.ContextCompat
 import com.bese.R
 
 /**
  * 简单文字按钮控件：可定义边框和边框粗细，定义按钮按下颜色
  */
-class BorderTextButton @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : AppCompatTextView(context, attrs, defStyleAttr) {
+class BorderTextButton @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
+    : AppCompatTextView(context, attrs, defStyleAttr) {
 
     companion object {
         private const val SHADOW_WIDTH_DEF = 0
@@ -47,11 +46,11 @@ class BorderTextButton @JvmOverloads constructor(context: Context, attrs: Attrib
     /**
      * 按钮背景色 默认白色
      */
-    private var bgColor: Int = BG_COLOR_DEF
+    @ColorInt private var bgColor: Int = BG_COLOR_DEF
     /**
      * 按钮按下背景色 默认背景色加深一层
      */
-    private var bgColorPressed: Int = BG_COLOR_PRESSED_DEF
+    @ColorInt private var bgColorPressed: Int = BG_COLOR_PRESSED_DEF
 
     /**
      * 阴影shadow大小 默认为0
@@ -62,7 +61,7 @@ class BorderTextButton @JvmOverloads constructor(context: Context, attrs: Attrib
     private var borderPressedDrawable: Drawable? = null
 
     init {
-        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.BorderTextButton)
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.BorderTextButton, defStyleAttr, 0)
         cornerRadius = typedArray.getDimension(R.styleable.BorderTextButton_borderButtonRadius, CORNER_RADIUS_DEF.toFloat())
         borderLineSize = typedArray.getDimension(R.styleable.BorderTextButton_borderLineSize,
             BORDERLINE_SIZE_DEF.toFloat())
@@ -85,12 +84,20 @@ class BorderTextButton @JvmOverloads constructor(context: Context, attrs: Attrib
         updateDrawable()
     }
 
-    fun setBgColor(@ColorRes bgColor: Int) {
-        this.bgColor = ContextCompat.getColor(context, bgColor)
+    fun setBgColor(@ColorInt bgColor: Int) {
+        this.bgColor = bgColor
     }
 
-    fun setBgColorPressed(@ColorRes pressBgColor: Int) {
-        this.bgColorPressed = ContextCompat.getColor(context, pressBgColor)
+    fun setBgColorPressed(@ColorInt pressBgColor: Int) {
+        this.bgColorPressed = pressBgColor
+    }
+
+    fun setBorderColor(@ColorInt pressBgColor: Int) {
+        this.borderLineColor = pressBgColor
+    }
+
+    fun setBorderSize(pressBgColor: Float) {
+        this.borderLineSize = pressBgColor
     }
 
     private fun updateDrawable() {

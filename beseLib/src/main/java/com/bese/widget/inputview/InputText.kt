@@ -6,12 +6,13 @@ import android.view.ActionMode
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.EditText
+import androidx.appcompat.widget.AppCompatEditText
 
 
 /**
  * 自定义输入框组件，控制复制粘贴功能是否可用
  */
-class InputText : EditText {
+class InputText : AppCompatEditText {
 
     private var shouldCopyAndPaste = true
 
