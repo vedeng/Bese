@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView
 /**
  * 位图截图工具类
  *      ## 工具提供部分截图方法，ScreenUtils包含Activity截屏，如需要请 Double Shift 查看
- *
  */
 object BitmapShotUtil {
 

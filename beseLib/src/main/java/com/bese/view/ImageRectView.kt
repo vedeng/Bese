@@ -119,8 +119,7 @@ class ImageRectView @JvmOverloads constructor(context: Context, attrs: Attribute
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         if (!autoWrapRatio) {
             val widthSize = MeasureSpec.makeMeasureSpec(measuredWidth, MeasureSpec.EXACTLY)
-            val heightSize =
-                MeasureSpec.makeMeasureSpec((measuredWidth * mRatio).toInt(), MeasureSpec.EXACTLY)
+            val heightSize = MeasureSpec.makeMeasureSpec((measuredWidth * mRatio).toInt(), MeasureSpec.EXACTLY)
             setMeasuredDimension(widthSize, heightSize)
         }
     }

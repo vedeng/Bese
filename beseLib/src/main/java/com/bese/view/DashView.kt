@@ -11,7 +11,9 @@ import com.bese.R
 /**
  * 绘制虚线自定义控件
  */
-class DashView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : View(context, attrs, defStyleAttr) {
+class DashView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
+    : View(context, attrs, defStyleAttr) {
+
     /**间距宽度 */
     private var dashWidth = DASH_WIDTH
     /**线段宽度 */
