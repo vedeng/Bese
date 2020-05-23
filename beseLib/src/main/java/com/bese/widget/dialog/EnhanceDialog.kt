@@ -14,11 +14,9 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.ColorInt
-import androidx.annotation.IdRes
 import androidx.core.content.ContextCompat
 import com.bese.R
 import com.bese.widget.button.BorderTextButton
-import com.blankj.utilcode.util.SizeUtils
 
 /**
  * 通用增强弹窗
@@ -84,7 +82,8 @@ class EnhanceDialog(private val mCtx: Context) {
     private var btnLine: View? = null
 
     private fun getDp(dpValue: Float): Int {
-        return SizeUtils.dp2px(dpValue)
+        val scale = mCtx.resources.displayMetrics.density
+        return (dpValue * scale + 0.5f).toInt()
     }
 
     /**

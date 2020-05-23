@@ -114,4 +114,10 @@
         <!--内容是否居中显示，默认右上角对齐-->
         <attr name="childLayoutCenter" format="boolean" />
     </declare-styleable>
+
+    <declare-styleable name="SelectLayout">
+        <attr name="minSelectCount" format="integer" /> <!--最小选中数量-->
+        <attr name="maxSelectCount" format="integer" /> <!--最大选中数量-->
+    </declare-styleable>
+
 </resources>

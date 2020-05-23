@@ -40,6 +40,7 @@ dependencies {
     api "org.jetbrains.anko:anko:0.10.2"
     api 'androidx.legacy:legacy-support-v4:1.0.0'
 
+    api 'com.google.android:flexbox:1.1.0'
     api 'androidx.cardview:cardview:1.0.0'
     api 'androidx.recyclerview:recyclerview:1.1.0'
 
@@ -60,7 +61,7 @@ dependencies {
     api 'com.youth.banner:banner:1.4.10'
 
     // SmartRefreshLayout 引用
-    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-andx-16'
+    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'
 //    BRVAH
     api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.47'
 
