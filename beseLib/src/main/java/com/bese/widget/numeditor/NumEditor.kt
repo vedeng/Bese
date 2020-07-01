@@ -1,6 +1,7 @@
 package com.bese.widget.numeditor
 
 import android.content.Context
+import android.graphics.Color
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
@@ -21,13 +22,20 @@ import kotlin.math.min
 class NumEditor @JvmOverloads constructor(private val mCtx: Context, var attrs: AttributeSet? = null, var defStyleAttr: Int = 0)
     : LinearLayout(mCtx, attrs, defStyleAttr), View.OnClickListener, TextWatcher {
 
-    /** 最大购买数量限制条件 */
-    private var buyMax = 9999
-    /** 最大购买数量限制条件 */
-    private var mBuyMin = 1
+    companion object {
+        private const val MIN_LIMIT = 1
+        private const val MAX_LIMIT = 9999
+        private const val SOURCE_LIMIT = MAX_LIMIT
+    }
 
+    /** 最大购买数量限制条件 */
+    private var mBuyMax = MAX_LIMIT
+    /** 最大购买数量限制条件 */
+    private var mBuyMin = MIN_LIMIT
     /** 库存数量限制条件 */
-    private var inventoryLimit = buyMax
+    private var inputAreaSize = getDp(50f)
+    /** 库存数量限制条件 */
+    private var inventoryLimit = mBuyMax
     /**
      * 库存对数量编辑的限制开关   false为关 默认false
      */
@@ -43,15 +51,13 @@ class NumEditor @JvmOverloads constructor(private val mCtx: Context, var attrs: 
     private var mEditListener: OnEditListener? = null
 
     private val maxLimitNum: Int
-        get() = min(buyMax, inventoryLimit)
+        get() = min(mBuyMax, inventoryLimit)
 
     val number: Int
         get() {
             try {
                 var n = mCount?.text.toString()
-                if (n.isEmpty()) {
-                    n = mBuyMin.toString()
-                }
+                if (n.isEmpty()) { n = mBuyMin.toString() }
                 return n.toInt()
             } catch (e: NumberFormatException) {
                 e.printStackTrace()
@@ -60,6 +66,11 @@ class NumEditor @JvmOverloads constructor(private val mCtx: Context, var attrs: 
             setNum(mBuyMin)
             return mBuyMin
         }
+
+    private fun getDp(dpValue: Float): Int {
+        val scale = mCtx.resources.displayMetrics.density
+        return (dpValue * scale + 0.5f).toInt()
+    }
 
     override fun onFinishInflate() {
         super.onFinishInflate()
@@ -81,23 +92,26 @@ class NumEditor @JvmOverloads constructor(private val mCtx: Context, var attrs: 
 
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.NumEditor, defStyleAttr, 0)
         val editable = typedArray.getBoolean(R.styleable.NumEditor_editable, true)
-        val minNumZero = typedArray.getBoolean(R.styleable.NumEditor_minNumZero, false)
-        val numberMinWidth = typedArray.getDimensionPixelSize(R.styleable.NumEditor_inputMinWidth, SizeUtils.dp2px(50f))
+        val minNum = typedArray.getInt(R.styleable.NumEditor_inputMinNum, MIN_LIMIT)
+        val maxNum = typedArray.getInt(R.styleable.NumEditor_inputMaxNum, MAX_LIMIT)
+        val sourceNum = typedArray.getInt(R.styleable.NumEditor_inputSourceNum, SOURCE_LIMIT)
+        val numberMinWidth = typedArray.getDimensionPixelSize(R.styleable.NumEditor_inputMinWidth, inputAreaSize)
         typedArray.recycle()
 
         isClickable = editable
 
-        setNumMinLimit(if (minNumZero) 0 else 1)
+        setNumLimit(min = if (minNum < 0) 1 else minNum, max = maxNum, source = sourceNum)
 
-        setNumberWidth(numberMinWidth)
+        setInputAreaWidth(numberMinWidth)
 
         setNum(mBuyMin)
 
         mCount?.setOnFocusChangeListener { _, _ ->
             mCount?.post {
-                mCount?.setSelection(
-                    mCount?.text.toString().length
-                )
+                var n = mCount?.text.toString()
+                if (n.isEmpty()) { n = mBuyMin.toString() }
+                if (n.toInt() < mBuyMin) setNum(n.toInt())
+                mCount?.setSelection(mCount?.text.toString().length)
             }
         }
     }
@@ -138,7 +152,7 @@ class NumEditor @JvmOverloads constructor(private val mCtx: Context, var attrs: 
     /**
      * 设置输入区域的宽度，默认50dp
      */
-    fun setNumberWidth(numberWidth: Int) {
+    fun setInputAreaWidth(numberWidth: Int) {
         if (numberWidth > 0) {
             val textParams = LayoutParams(numberWidth, LayoutParams.MATCH_PARENT)
             val m = SizeUtils.dp2px(1f)
@@ -152,23 +166,19 @@ class NumEditor @JvmOverloads constructor(private val mCtx: Context, var attrs: 
         val count = number
         if (id == R.id.btn_sub) {
             if (count > mBuyMin) {
-                //正常减
-                setNum(count - 1)
+                setNum(count - 1)           //正常减
             }
             edit(count, count - 1)
         } else if (id == R.id.btn_add) {
             when {
                 count < maxLimitNum -> {
-                    //正常添加
-                    setNum(count + 1)
+                    setNum(count + 1)           //正常添加
                 }
-                inventoryLimit < buyMax -> {
-                    //库存不足
-                    warningForInventory()
+                inventoryLimit < mBuyMax -> {
+                    warningForInventory()           //库存不足
                 }
                 else -> {
-                    //超过最大购买数
-                    warningForBuyMax()
+                    warningForBuyMax()          //超过最大购买数
                 }
             }
             edit(count, count + 1)
@@ -188,7 +198,7 @@ class NumEditor @JvmOverloads constructor(private val mCtx: Context, var attrs: 
      * Warning for buy max.
      */
     private fun warningForBuyMax() {
-        mOnWarnListener?.onWarningForBuyMax(buyMax)
+        mOnWarnListener?.onWarningForBuyMax(mBuyMax)
     }
 
     /**
@@ -200,8 +210,8 @@ class NumEditor @JvmOverloads constructor(private val mCtx: Context, var attrs: 
         num?.run {
             if (num < mBuyMin) {
                 mCount?.setText(mBuyMin.toString())
-            } else if (num > buyMax) {
-                mCount?.setText(buyMax.toString())
+            } else if (num > mBuyMax) {
+                mCount?.setText(mBuyMax.toString())
             } else {
                 mCount?.setText(num.toString())
             }
@@ -210,16 +220,16 @@ class NumEditor @JvmOverloads constructor(private val mCtx: Context, var attrs: 
             setAddEnable(num < maxLimitNum)
             setSubEnable(num > mBuyMin)
         }
-
     }
 
     fun getEditText(): EditText? {
         return mCount
     }
 
-    fun setNumMaxLimit(max: Int = buyMax, inventory: Int = max) {
-        buyMax = max
-        inventoryLimit = if (inventoryFlag) inventory else max
+    fun setNumLimit(min: Int = 1, max: Int = mBuyMax, source: Int = max) {
+        mBuyMin = min
+        mBuyMax = max
+        inventoryLimit = if (inventoryFlag) source else max
         var n = mCount?.text.toString()
         if (n.isEmpty()) {
             n = mBuyMin.toString()
@@ -263,39 +273,33 @@ class NumEditor @JvmOverloads constructor(private val mCtx: Context, var attrs: 
             if (thisNum >= limit) {
                 setAddEnable(false)
                 setSubEnable(true)
-                //超过了数量
-                if (thisNum != limit) {
+                if (thisNum != limit) {             //超过了数量
                     setNum(limit)
-                    if (inventoryLimit < buyMax) {
-                        //库存不足
-                        warningForInventory()
+                    if (inventoryLimit < mBuyMax) {
+                        warningForInventory()               //库存不足
                     } else {
-                        //超过最大购买数
-                        warningForBuyMax()
+                        warningForBuyMax()                  //超过最大购买数
                     }
                 }
             } else {
                 setAddEnable(true)
                 setSubEnable(thisNum > mBuyMin)
-                if (mBuyMin != 0 && "0" == s.toString()) {
-                    s.clear()
-                }
+                if (mBuyMin != 0 && "0" == s.toString()) { s.clear() }
             }
         } else {
             setAddEnable(true)
             setSubEnable(true)
         }
-        // 输入框清空后 不处理，交给焦点事件
     }
 
     private fun setAddEnable(isEnable: Boolean) {
         addButton?.run {
             if (isEnable) {
-                setTextColor(ContextCompat.getColor(mCtx, R.color.color_333))
+                setTextColor(Color.parseColor("#333333"))
                 isClickable = true
                 isEnabled = true
             } else {
-                setTextColor(ContextCompat.getColor(mCtx, R.color.color_ddd))
+                setTextColor(Color.parseColor("#cccccc"))
                 isClickable = false
                 isEnabled = false
             }
@@ -305,11 +309,11 @@ class NumEditor @JvmOverloads constructor(private val mCtx: Context, var attrs: 
     private fun setSubEnable(isEnable: Boolean) {
         subButton?.run {
             if (isEnable) {
-                setTextColor(ContextCompat.getColor(mCtx, R.color.color_333))
+                setTextColor(Color.parseColor("#333333"))
                 isClickable = true
                 isEnabled = true
             } else {
-                setTextColor(ContextCompat.getColor(mCtx, R.color.color_ddd))
+                setTextColor(Color.parseColor("#cccccc"))
                 isClickable = false
                 isEnabled = false
             }
@@ -319,12 +323,9 @@ class NumEditor @JvmOverloads constructor(private val mCtx: Context, var attrs: 
     interface OnWarnListener {
         /** 库存超限方法 */
         fun onWarningForInventory(inventory: Int)
-
         /** 数量超限方法 */
         fun onWarningForBuyMax(max: Int)
-
     }
-
 
     interface OnEditListener {
         /** 编辑 */
@@ -334,6 +335,5 @@ class NumEditor @JvmOverloads constructor(private val mCtx: Context, var attrs: 
     fun setOnEditListener(listener: OnEditListener) {
         mEditListener = listener
     }
-
 
 }

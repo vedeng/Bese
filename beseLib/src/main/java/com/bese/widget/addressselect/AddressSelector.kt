@@ -18,7 +18,7 @@ import java.util.*
 /**
  * 地址选择器
  */
-class AddressSelector(private val context: Context, private var loadPresenter: DataLoadPresenter?,
+class AddressSelector(private val context: Context, var loadPresenter: DataLoadPresenter?,
                       province: Region? = null, city: Region? = null, district: Region? = null, street: Region? = null)
     : AdapterView.OnItemClickListener {
 

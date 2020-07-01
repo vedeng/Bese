@@ -50,10 +50,15 @@
         <action
             android:id="@+id/action_mainFragment_to_popupFragment"
             app:destination="@id/popupFragment"/>
-
         <action
             android:id="@+id/action_mainFragment_to_locationFragment"
             app:destination="@id/locationFragment"/>
+        <action
+            android:id="@+id/action_mainFragment_to_selectAddressFragment"
+            app:destination="@id/selectAddressFragment"/>
+        <action
+            android:id="@+id/action_mainFragment_to_selectItemFragment"
+            app:destination="@id/selectItemFragment"/>
     </fragment>
 
     <fragment
@@ -170,5 +175,15 @@
         android:id="@+id/locationFragment"
         android:name="com.ved.ui.fragment.tool.LocationFragment"
         android:label="LocationFragment" />
+
+    <fragment
+        android:id="@+id/selectAddressFragment"
+        android:name="com.ved.ui.fragment.select.SelectAddressFragment"
+        android:label="LocationFragment" />
+
+    <fragment
+        android:id="@+id/selectItemFragment"
+        android:name="com.ved.ui.fragment.select.SelectItemFragment"
+        android:label="SelectItemFragment" />
 
 </navigation>

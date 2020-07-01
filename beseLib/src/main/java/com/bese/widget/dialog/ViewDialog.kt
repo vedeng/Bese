@@ -17,7 +17,6 @@ import com.bese.R
 /**
  * 弹窗工具
  *      效果：展示自定义View的弹窗
- *
  */
 class ViewDialog(private val mCtx: Context) {
 
@@ -205,13 +204,7 @@ class ViewDialog(private val mCtx: Context) {
             // 绑定视图
             dialogView?.run { setContentView(this) }
 
-            try {
-                // dialog展示
-                show()
-            } catch (e: Exception) {
-                Log.e("VDialog-show-Error", "${e.message}")
-            }
-
+            showDialog()
         }
     }
 
@@ -222,7 +215,12 @@ class ViewDialog(private val mCtx: Context) {
     fun showDialog() {
         mDialog?.run {
             if (!isShowing) {
-                show()
+                try {
+                    show()          // dialog展示
+                } catch (e: Exception) {
+                    Log.e("VDialog-Error", "${e.message}")
+                }
+
             }
         }
     }

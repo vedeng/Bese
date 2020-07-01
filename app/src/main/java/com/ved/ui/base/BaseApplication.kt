@@ -24,6 +24,7 @@ class BaseApplication : Application() {
         ctx = this
         // 初始化网络BaseUrl
         APICreator.init("https://mock.yonyoucloud.com/mock/3936/")
+        APICreator.initHeaderAndUA(HashMap<String, String?>().apply { put("sid", "NYp0rpsAYcoVrgfVWES6OYyfhjXJfWm7wgZNythb1l4=") }, "android")
 
         initUtils()
     }

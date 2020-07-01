@@ -12,7 +12,7 @@ import androidx.fragment.app.FragmentManager
 import com.bese.R
 
 /**
- * < 顶部或底部出现的边缘弹窗 >
+ * <顶部或底部出现的边缘弹窗>
  */
 class EdgeDialog(private var isTop: Boolean = false) : DialogFragment() {
 
@@ -87,7 +87,7 @@ class EdgeDialog(private var isTop: Boolean = false) : DialogFragment() {
         try {
             super.show(manager, tag)
         } catch (e: Exception) {
-            Log.e("EdgeDialog-show-Error", "${e.message}")
+            Log.e("EdgeDialog-Error", "${e.message}")
         }
     }
 

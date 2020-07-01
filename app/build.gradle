@@ -76,10 +76,23 @@ dependencies {
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation 'com.google.android:flexbox:1.1.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    implementation "org.jetbrains.anko:anko:0.10.8"
+
+    // Retrofit库
+    implementation 'com.squareup.retrofit2:retrofit:2.8.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.8.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.4.1'
+
+    // 图片库
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    kapt 'com.github.bumptech.glide:compiler:4.11.0'
 
     // JetPack-Navigation
-    implementation "androidx.navigation:navigation-fragment-ktx:2.2.2"
-    implementation "androidx.navigation:navigation-ui-ktx:2.2.2"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.3.0"
+    implementation "androidx.navigation:navigation-ui-ktx:2.3.0"
 
     // JetPack-Lifecycle
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
@@ -87,5 +100,31 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
     // JetPack-LiveData
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
+
+    // SmartRefreshLayout 引用
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'
+//    BRVAH
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.47'
+
+    // 网络框架
+    implementation 'com.github.vedeng:NetFrame:1.1.0'
+
+    // EventBus
+    implementation "org.greenrobot:eventbus:3.2.0"
+
+    // Lottie
+    implementation 'com.airbnb.android:lottie:3.4.0'
+
+    //    Utils
+    implementation 'com.blankj:utilcodex:1.25.9'
+
+    // 图片选择库
+    implementation 'com.github.vedeng:PicSelectFrame:1.5'
+
+//    轮播
+    implementation 'com.youth.banner:banner:1.4.10'
+
+    // 权限申请
+    implementation 'com.hjq:xxpermissions:5.5'
 
 }

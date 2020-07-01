@@ -15,7 +15,8 @@ import kotlin.math.min
 /**
  * 选择容器，自动换行
  */
-class SelectLayout @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : FlexboxLayout(context, attrs, defStyleAttr) {
+class SelectLayout @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
+    : FlexboxLayout(context, attrs, defStyleAttr) {
 
     private var mMinSelectCount: Int = 0
     private var mMaxSelectCount: Int = 1
@@ -27,6 +28,14 @@ class SelectLayout @JvmOverloads constructor(context: Context, attrs: AttributeS
         mMinSelectCount = typedArray.getInt(R.styleable.SelectLayout_minSelectCount, mMinSelectCount)
         mMaxSelectCount = typedArray.getInt(R.styleable.SelectLayout_maxSelectCount, mMaxSelectCount)
         typedArray.recycle()
+    }
+
+    fun setMinSelectCount(count: Int) {
+        mMinSelectCount = if (count < 0) 0 else count
+    }
+
+    fun setMaxSelectCount(count: Int) {
+        mMaxSelectCount = if (count < 1) 1 else count
     }
 
     /**
@@ -66,7 +75,6 @@ class SelectLayout @JvmOverloads constructor(context: Context, attrs: AttributeS
     fun getSelectedChildren(): List<View> {
         return mSelectedChildList
     }
-
 
     /**
      * 修正SelectCount相关变量

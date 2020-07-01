@@ -33,7 +33,7 @@ class NumEditorFragment : BaseFragment() {
 
     override fun doExecute() {
 
-        editor_num?.setNumMaxLimit(6666)
+        editor_num?.setNumLimit(max = 6666)
         editor_num?.setNum(1)
         editor_num?.setOnWarnListener(object : NumEditor.OnWarnListener {
             override fun onWarningForInventory(inventory: Int) {

@@ -115,7 +115,7 @@ class DetailPicPickerActivity : BaseActivity() {
     }
 
     fun openSelect() {
-        PicPickerDialog(this, View.OnClickListener { gotoPicPickerPage(true) },
+        PicPickerDialog(View.OnClickListener { gotoPicPickerPage(true) },
             View.OnClickListener { gotoPicPickerPage(false) }).show(supportFragmentManager, "Picker")
     }
 

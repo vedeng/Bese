@@ -122,11 +122,8 @@ class InputView @JvmOverloads constructor(private var mCtx: Context, var attrs: 
     }
 
     private val textWatcher = object : TextWatcher {
-
         override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-
         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
-
         override fun afterTextChanged(s: Editable?) {
             if (s != null) {
                 if (!TextUtils.isEmpty(s.toString())) {
@@ -141,12 +138,18 @@ class InputView @JvmOverloads constructor(private var mCtx: Context, var attrs: 
     private var inputListener: InputListener? = null
 
     init {
+        orientation = HORIZONTAL
+        DEFAULT_TEXT_SIZE = getDp(16f).toFloat()
         init(mCtx, attrs)
+    }
+
+    private fun getDp(dpValue: Float): Int {
+        val scale = mCtx.resources.displayMetrics.density
+        return (dpValue * scale + 0.5f).toInt()
     }
 
     @SuppressLint("ClickableViewAccessibility")
     private fun init(context: Context, attrs: AttributeSet?) {
-        orientation = HORIZONTAL
         LayoutInflater.from(context).inflate(R.layout.layout_input_edit, this)
         inputLayout = findViewById(R.id.layout_input)
         inputView = findViewById(R.id.et_input)
@@ -156,59 +159,35 @@ class InputView @JvmOverloads constructor(private var mCtx: Context, var attrs: 
         inputLine = findViewById(R.id.input_line)
         inputView?.isFocusable = true
 
-        DEFAULT_TEXT_SIZE = SizeUtils.sp2px(16f).toFloat()
-        val params = RelativeLayout.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.MATCH_PARENT
-        )
+        val params = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         inputLayout?.layoutParams = params
 
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.InputView, defStyleAttr, 0)
         val tipText = typedArray.getString(R.styleable.InputView_inputTipText)
-        val tipColor = typedArray.getColor(R.styleable.InputView_inputTipColor,
-            DEFAULT_TEXT_COLOR
-        )
+        val tipColor = typedArray.getColor(R.styleable.InputView_inputTipColor, DEFAULT_TEXT_COLOR)
         val tipWidth = typedArray.getDimension(R.styleable.InputView_inputTipWidth, 0f)
         val tipPaddingLeft = typedArray.getDimension(R.styleable.InputView_inputTipPaddingLeft, 0f)
-        val tipPaddingRight =
-            typedArray.getDimension(R.styleable.InputView_inputTipPaddingRight, 0f)
+        val tipPaddingRight = typedArray.getDimension(R.styleable.InputView_inputTipPaddingRight, 0f)
         tipIsIcon = typedArray.getBoolean(R.styleable.InputView_inputTipIsIcon, false)
         val showText = typedArray.getString(R.styleable.InputView_inputLainText)
-        val showColor =
-            typedArray.getColor(R.styleable.InputView_inputLainTextColor,
-                DEFAULT_TEXT_COLOR
-            )
+        val showColor = typedArray.getColor(R.styleable.InputView_inputLainTextColor, DEFAULT_TEXT_COLOR)
         val hintText = typedArray.getString(R.styleable.InputView_inputHintText)
-        hintColor = typedArray.getColor(R.styleable.InputView_inputHintColor,
-            DEFAULT_HINT_COLOR
-        )
-        val txtSize =
-            typedArray.getDimension(R.styleable.InputView_inputAllTextSize,
-                DEFAULT_TEXT_SIZE
-            )
+        hintColor = typedArray.getColor(R.styleable.InputView_inputHintColor, DEFAULT_HINT_COLOR)
+        val txtSize = typedArray.getDimension(R.styleable.InputView_inputAllTextSize, DEFAULT_TEXT_SIZE)
         longClick = typedArray.getBoolean(R.styleable.InputView_inputLongClickable, true)
         isSingleLine = typedArray.getBoolean(R.styleable.InputView_inputIsSingleLine, true)
         val inputMinLine = typedArray.getInt(R.styleable.InputView_inputMinLine, 2)
         val inputMaxLine = typedArray.getInt(R.styleable.InputView_inputMaxLine, 5)
         isShowInputLine = typedArray.getBoolean(R.styleable.InputView_inputIsShowBottomLine, false)
-        val bottomLineColor =
-            typedArray.getColor(R.styleable.InputView_inputBottomLineColor,
-                DEFAULT_HINT_COLOR
-            )
-        val bottomLineFocusedColor = typedArray.getColor(
-            R.styleable.InputView_inputBottomLineFocusedColor,
-            DEFAULT_FOCUS_COLOR
-        )
+        val bottomLineColor = typedArray.getColor(R.styleable.InputView_inputBottomLineColor, DEFAULT_HINT_COLOR)
+        val bottomLineFocusedColor = typedArray.getColor(R.styleable.InputView_inputBottomLineFocusedColor, DEFAULT_FOCUS_COLOR)
         val lineMargin = typedArray.getDimension(R.styleable.InputView_inputBottomLineMargin, 0f)
         val inputAreaBgRes = typedArray.getResourceId(R.styleable.InputView_inputAreaBackground, 0)
         editable = typedArray.getBoolean(R.styleable.InputView_editEnable, true)
-        inputType = typedArray.getInt(R.styleable.InputView_inputType,
-            NON
-        )
+        inputType = typedArray.getInt(R.styleable.InputView_inputType, NON)
         bgColor = typedArray.getColor(R.styleable.InputView_inputBgColor, Color.TRANSPARENT)
         val maxLength = typedArray.getInt(R.styleable.InputView_inputMaxLength, -1)
         typedArray.recycle()
-
 
         inputLayout?.setBackgroundColor(bgColor)
 
@@ -276,13 +255,12 @@ class InputView @JvmOverloads constructor(private var mCtx: Context, var attrs: 
             }
         }
 
-        //        设置最大长度
+        // 设置最大长度
         if (maxLength != -1) {
             setInputMaxLength(maxLength)
         }
 
-        //        setInputFilter(StringUtil.emojiFilter);
-        //        添加表情过滤
+        // setInputFilter(StringUtil.emojiFilter)            //        添加表情过滤
         val inputFilters = ArrayList(Arrays.asList(*inputView?.filters))
         inputFilters.add(StringUtil.emojiFilter)
         inputView?.filters = inputFilters.toTypedArray()
@@ -329,9 +307,7 @@ class InputView @JvmOverloads constructor(private var mCtx: Context, var attrs: 
      * @param hint 提示
      */
     fun setHintText(hint: String?, hintColor: Int) {
-        var hint = hint
-        hint = if (TextUtils.isEmpty(hint)) "" else hint
-        inputView?.hint = hint
+        inputView?.hint = hint ?: ""
         inputView?.setHintTextColor(hintColor)
     }
 

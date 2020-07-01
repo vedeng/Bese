@@ -11,7 +11,6 @@ import com.bese.R
 import com.bese.util.TimeUtil
 import com.blankj.utilcode.constant.TimeConstants
 import kotlinx.android.synthetic.main.time_count_down.view.*
-import org.jetbrains.anko.textColor
 
 /**
  * 倒计时View
@@ -66,13 +65,13 @@ class CountDownTimerView(context: Context, attrs: AttributeSet?) : FrameLayout(c
     }
 
     fun setTimerTextColor(@ColorInt colorInt: Int) {
-        hour?.textColor = colorInt
-        minute?.textColor = colorInt
-        second?.textColor = colorInt
+        hour?.setTextColor(colorInt)
+        minute?.setTextColor(colorInt)
+        second?.setTextColor(colorInt)
     }
 
     fun setTimerColonColor(@ColorInt colorInt: Int) {
-        hour_colon?.textColor = colorInt
-        minute_colon?.textColor = colorInt
+        hour_colon?.setTextColor(colorInt)
+        minute_colon?.setTextColor(colorInt)
     }
 }

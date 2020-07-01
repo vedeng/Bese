@@ -11,7 +11,6 @@ class ToolFragment : BaseFragment() {
     }
 
     override fun init() {
-//        tv_add?.setOnClickListener { navigate(R.id.action_toolFragment_to_locationFragment) }
     }
 
     override fun doExecute() {

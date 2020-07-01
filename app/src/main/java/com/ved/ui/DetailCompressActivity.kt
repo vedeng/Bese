@@ -82,8 +82,7 @@ class DetailCompressActivity : BaseActivity() {
         }
 
         img_start?.setOnClickListener {
-            PicPickerDialog(this,
-                View.OnClickListener { gotoPicPickerPage(true) },
+            PicPickerDialog(View.OnClickListener { gotoPicPickerPage(true) },
                 View.OnClickListener { gotoPicPickerPage(false) }).show(supportFragmentManager, "Picker")
         }
 

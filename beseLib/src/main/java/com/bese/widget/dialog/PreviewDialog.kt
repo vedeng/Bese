@@ -31,35 +31,31 @@ import java.io.File
 /**
  * < 大图预览Dialog >
  */
-class PreviewDialog() : DialogFragment() {
+class PreviewDialog(
+    private var mCtx: Context?,
+    private var imageList: ArrayList<String?>?,
+    private var currentPosition: Int = 0,
+    private var enableDownload: Boolean = false
+) : DialogFragment() {
 
     companion object {
-        const val TIP_SAVE_OVER = "保存成功"
-        const val TIP_SAVING = "保存中..."
-        const val TIP_SAVE_FAIL = "保存失败"
-        const val TIP_SAVE_NO_PERMISSION = "缺少必要权限，请去设置页面打开相应权限"
-        var SAVE_PATH = PathUtils.getExternalStoragePath() + "/Download/"
+        var TIP_SAVE_OVER = "保存成功"
+        var TIP_SAVING = "保存中..."
+        var TIP_SAVE_FAIL = "保存失败"
+        var TIP_SAVE_NO_PERMISSION = "缺少必要权限，请去设置页面打开相应权限"
+        var SAVE_DIR = "Download"
+        var SAVE_PATH = PathUtils.getExternalStoragePath() + "/$SAVE_DIR/"
 
     }
 
-    private var mCtx: Context? = null
     /** 预览图ViewPager */
     private var preview: ViewPager? = null
     private var previewLayout: RelativeLayout? = null
     private var downloadIcon: ImageView? = null
     private var numIndicator: TextButton? = null
 
-    private var currentPosition = 0
-    private var enableDownload: Boolean = false
-
-    private var imageList = ArrayList<String>()
-
-    constructor(ctx: Context, images: ArrayList<String?>?, position: Int = 0, enableDownload: Boolean = false) : this() {
-        mCtx = ctx
-        imageList = ArrayList()
-        currentPosition = position
-        this.enableDownload = enableDownload
-        images?.forEach { if(it?.isNotEmpty() == true) { imageList.add(it) } }
+    init {
+        imageList?.forEach { if(it?.isNotEmpty() == true) { imageList?.add(it) } }
     }
 
     /**
@@ -71,14 +67,14 @@ class PreviewDialog() : DialogFragment() {
         }
 
         override fun getCount(): Int {
-            return imageList.size
+            return imageList?.size ?: 1
         }
 
         override fun instantiateItem(container: ViewGroup, position: Int): Any {
             val view = PhotoView(mCtx)
             view.isEnableZoom = true
             view.scaleType = ImageView.ScaleType.FIT_CENTER
-            mCtx?.run { Glide.with(this).load(imageList[position]).into(view) }
+            mCtx?.run { Glide.with(this).load(imageList?.get(position)).into(view) }
             view.setOnClickListener {
                 dismiss()
             }
@@ -123,7 +119,7 @@ class PreviewDialog() : DialogFragment() {
 
         previewLayout?.visibility = View.VISIBLE
 
-        if (currentPosition < imageList.size) {
+        if (currentPosition < (imageList?.size ?: 1)) {
             preview?.let {
                 it.pageMargin = (resources.displayMetrics.density * 10).toInt()
                 it.adapter = previewAdapter
@@ -136,29 +132,31 @@ class PreviewDialog() : DialogFragment() {
         }
         downloadIcon?.visibility = if (enableDownload) View.VISIBLE else View.GONE
         downloadIcon?.setOnClickListener {
-            XXPermissions.with(requireActivity()).constantRequest().permission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    .request(object : OnPermission {
-                        override fun noPermission(denied: MutableList<String>?, quick: Boolean) {
-                            if (quick) {
-                                ToastUtils.showShort(TIP_SAVE_NO_PERMISSION)
-                            }
+            XXPermissions.with(requireActivity()).constantRequest()
+                .permission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .request(object : OnPermission {
+                    override fun noPermission(denied: MutableList<String>?, quick: Boolean) {
+                        if (quick) {
+                            ToastUtils.showShort(TIP_SAVE_NO_PERMISSION)
                         }
-                        override fun hasPermission(granted: MutableList<String>?, isAll: Boolean) {
-                            ToastUtils.showShort(TIP_SAVING)
-                            Thread(Runnable { downloadPic(imageList[currentPosition]) }).start()
-                        }
-                    })
+                    }
+
+                    override fun hasPermission(granted: MutableList<String>?, isAll: Boolean) {
+                        ToastUtils.showShort(TIP_SAVING)
+                        Thread(Runnable { downloadPic(imageList?.get(currentPosition)) }).start()
+                    }
+                })
         }
-        if (imageList.size > 1) {
+        if (imageList?.size ?: 1 > 1) {
             numIndicator?.visibility = View.VISIBLE
-            numIndicator?.text = "${currentPosition + 1}/${imageList.size}"
+            numIndicator?.text = "${currentPosition + 1}/${imageList?.size ?: 1}"
         }
         preview?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(state: Int) { }
+            override fun onPageScrollStateChanged(state: Int) {}
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) { }
             override fun onPageSelected(position: Int) {
                 currentPosition = position
-                numIndicator?.text = "${position + 1}/${imageList.size}"
+                numIndicator?.text = "${position + 1}/${imageList?.size ?: 1}"
             }
         })
     }
@@ -177,7 +175,7 @@ class PreviewDialog() : DialogFragment() {
                 val newFile = File(filePath)
                 FileUtils.copyFile(sourceFile, newFile)
                 // 通知媒体库，如果失败可能文件不存在，isDone要放在后面
-                MediaStore.Images.Media.insertImage(requireActivity().contentResolver, newFile.absolutePath, filePath, null)
+                MediaStore.Images.Media.insertImage(mCtx?.contentResolver, newFile.absolutePath, filePath, null)
                 requireActivity().sendBroadcast(Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(File(newFile.path))))
 
                 isDone = true
@@ -194,21 +192,21 @@ class PreviewDialog() : DialogFragment() {
         }
     }
 
-    private fun getPicSaveName(path: String?, resPath: String?) : String {
+    private fun getPicSaveName(path: String?, resPath: String?): String {
         var name = ""
         path?.run {
             // png格式特殊，单独处理，如果有其他特殊格式，也可单独处理
             val isPng = resPath?.endsWith(".png", true)
             name = this.plus(System.currentTimeMillis()).plus(if (isPng == true) ".png" else ".jpg")
         }
-        return  name
+        return name
     }
 
     override fun show(manager: FragmentManager, tag: String?) {
         try {
             super.show(manager, tag)
         } catch (e: Exception) {
-            Log.e("PDialog-show-Error", "${e.message}")
+            Log.e("PreviewDialog-Error->", "${e.message}")
         }
     }
 

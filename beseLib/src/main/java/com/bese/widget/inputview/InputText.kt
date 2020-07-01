@@ -27,32 +27,17 @@ class InputText : AppCompatEditText {
         isLongClickable = false
         setTextIsSelectable(false)
         customSelectionActionModeCallback = object : ActionMode.Callback {
-            override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
-                return false
-            }
-
-            override fun onPrepareActionMode(mode: ActionMode, menu: Menu): Boolean {
-                return false
-            }
-
-            override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
-                return false
-            }
-
-            override fun onDestroyActionMode(mode: ActionMode) {}
+            override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean { return false }
+            override fun onPrepareActionMode(mode: ActionMode, menu: Menu): Boolean { return false }
+            override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean { return false }
+            override fun onDestroyActionMode(mode: ActionMode) { }
         }
     }
 
     override fun onTextContextMenuItem(id: Int): Boolean {
-        if (!shouldCopyAndPaste && id == android.R.id.paste) {
-            return false
-        }
-        if (!shouldCopyAndPaste && id == android.R.id.copy) {
-            return false
-        }
-        return if (!shouldCopyAndPaste && id == android.R.id.selectAll) {
-            false
-        } else super.onTextContextMenuItem(id)
+        if (!shouldCopyAndPaste && id == android.R.id.paste) { return false }
+        if (!shouldCopyAndPaste && id == android.R.id.copy) { return false }
+        return if (!shouldCopyAndPaste && id == android.R.id.selectAll) false else super.onTextContextMenuItem(id)
     }
 
     fun canPaste(): Boolean {

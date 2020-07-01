@@ -50,6 +50,38 @@
                 app:buttonBgColorPressed="#0099dd"
                 app:buttonRadius="3dp" />
 
+            <com.bese.widget.button.TextButton
+                android:id="@+id/bottom_dialog3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="30dp"
+                android:padding="3dp"
+                android:text="底部弹窗3"
+                android:textColor="@color/color_fff"
+                android:textSize="18sp"
+                app:buttonBgColor="#0099ff"
+                app:buttonBgColorPressed="#0099dd"
+                app:buttonRadius="3dp" />
+
+            <com.bese.widget.button.TextButton
+                android:id="@+id/bottom_dialog4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="30dp"
+                android:padding="3dp"
+                android:text="底部弹窗4"
+                android:textColor="@color/color_fff"
+                android:textSize="18sp"
+                app:buttonBgColor="#0099ff"
+                app:buttonBgColorPressed="#0099dd"
+                app:buttonRadius="3dp" />
+
             <include layout="@layout/base_content" />
 
         </LinearLayout>

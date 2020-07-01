@@ -14,16 +14,17 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.ColorInt
+import androidx.annotation.IdRes
 import androidx.core.content.ContextCompat
 import com.bese.R
 import com.bese.widget.button.BorderTextButton
+import com.blankj.utilcode.util.SizeUtils
 
 /**
  * 通用增强弹窗
  *      效果：仿iOS系统弹窗界面
  *      适用范围：自定义简单弹窗-标题+消息+强化点击引导
  *      Link：自定义View弹窗  ViewDialog，可使用自定义View
- *
  */
 class EnhanceDialog(private val mCtx: Context) {
 
@@ -41,7 +42,7 @@ class EnhanceDialog(private val mCtx: Context) {
     @ColorInt private var messageTextColor: Int = Color.BLACK
     private var messageGravity: Int = Gravity.CENTER
 
-    @ColorInt private var bottomLineColor: Int = ContextCompat.getColor(mCtx, R.color.color_ccc)
+    @ColorInt private var bottomLineColor: Int = Color.parseColor("#cccccc")
 
     private var cancelText: String? = "取消"
     @ColorInt private var cancelTextColor: Int = Color.parseColor("#999999")
@@ -82,8 +83,7 @@ class EnhanceDialog(private val mCtx: Context) {
     private var btnLine: View? = null
 
     private fun getDp(dpValue: Float): Int {
-        val scale = mCtx.resources.displayMetrics.density
-        return (dpValue * scale + 0.5f).toInt()
+        return SizeUtils.dp2px(dpValue)
     }
 
     /**
@@ -420,14 +420,7 @@ class EnhanceDialog(private val mCtx: Context) {
             // 绑定视图
             dialogView?.run { setContentView(this) }
 
-
-            try {
-                // dialog展示
-                show()
-            } catch (e: Exception) {
-                Log.e("EDialog-show-Error", "${e.message}")
-            }
-
+            showDialog()
         }
     }
 
@@ -438,7 +431,11 @@ class EnhanceDialog(private val mCtx: Context) {
     fun showDialog() {
         mDialog?.run {
             if (!isShowing) {
-                show()
+                try {
+                    show()          // dialog展示
+                } catch (e: Exception) {
+                    Log.e("EnhanceDialog-Error", "${e.message}")
+                }
             }
         }
     }

@@ -15,14 +15,12 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import com.bese.R
+import java.lang.Exception
 
 /**
  * 通用弹窗工具
  *      效果：仿iOS系统弹窗界面
  *      适用范围：自定义简单弹窗-标题+消息
- *      Link：醒目按钮弹窗  BDialog，不自定义View，在需要按钮样式增强时使用
- *      Link：自定义View弹窗  VDialog，可使用自定义View
- *
  */
 class XDialog(private val mCtx: Context) {
 
@@ -383,13 +381,7 @@ class XDialog(private val mCtx: Context) {
             // 绑定视图
             dialogView?.run { setContentView(this) }
 
-            try {
-                // dialog展示
-                show()
-            } catch (e: Exception) {
-                // 内部处理异常，常见的是activity 销毁太早
-                Log.e("XDialog-show-Error", "${e.message}")
-            }
+            showDialog()
         }
     }
 
@@ -400,7 +392,12 @@ class XDialog(private val mCtx: Context) {
     fun showDialog() {
         mDialog?.run {
             if (!isShowing) {
-                show()
+                try {
+                    show()          // dialog展示
+                } catch (e: Exception) {
+                    // 内部处理异常，常见的是activity 销毁太早
+                    Log.e("XDialog-Error", "${e.message}")
+                }
             }
         }
     }

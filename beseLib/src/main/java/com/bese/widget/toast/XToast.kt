@@ -108,14 +108,12 @@ class XToast(val context: Context) {
      */
     fun show(): XToast {
         if (view == null) {
-            // 默认View
             view = LayoutInflater.from(context).inflate(R.layout.toast_hint_noicon, null)
         }
-        // 如果当前已经显示，就取消上一次显示
         if (isShow) {
             cancel()
         }
-        try { // 如果这个 View 对象被重复添加到 WindowManager 则会抛出异常
+        try {       // 如果这个 View 对象被重复添加到 WindowManager 则会抛出异常
             windowManager?.addView(view, windowParams)
             // 当前已经显示
             isShow = true
@@ -126,8 +124,7 @@ class XToast(val context: Context) {
                 }, mDuration)
             }
         } catch (ignored: Exception) {
-            // 内部处理异常，常见的是activity 销毁太早
-            Log.e("XToast-show-Error", "${ignored.message}")
+            Log.e("XToast-Error", "${ignored.message}")
         }
         return this
     }
@@ -137,7 +134,7 @@ class XToast(val context: Context) {
      */
     fun cancel(): XToast {
         if (isShow) {
-            try { // 如果当前 WindowManager 没有附加这个 View 则会抛出异常
+            try {       // 如果当前 WindowManager 没有附加这个 View 则会抛出异常
                 windowManager?.removeView(view)
             } catch (ignored: NullPointerException) {
                 Log.e("XToast maybe destroyed", "=" + ignored.message)
@@ -164,16 +161,16 @@ class XToast(val context: Context) {
     /**
      * 根据 ViewId 获取 View
      */
-    fun <V : View?> findViewById(id: Int): V {
+    fun <V : View?> findViewById(id: Int): V? {
         checkNotNull(view) { "Please setup view" }
-        return view?.findViewById<View>(id) as V
+        return view?.findViewById<View>(id) as? V
     }
 
     /**
      * 设置可见状态
      */
     fun setVisibility(id: Int, visibility: Int): XToast {
-        findViewById<View>(id).visibility = visibility
+        findViewById<View>(id)?.visibility = visibility
         return this
     }
 
@@ -205,11 +202,7 @@ class XToast(val context: Context) {
     }
 
     fun setBackground(id: Int, drawable: Drawable?): XToast {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            findViewById<View>(id).background = drawable
-        } else {
-            findViewById<View>(id).setBackgroundDrawable(drawable)
-        }
+        findViewById<View>(id)?.background = drawable
         return this
     }
 

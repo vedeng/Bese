@@ -20,7 +20,7 @@ import kotlin.math.max
  * 徽标组件
  *      徽标文字可能会有少许偏移
  */
-class BadgeView constructor(context: Context?) : View(context) {
+class BadgeView constructor(context: Context) : View(context) {
 
     companion object {
         const val DEF_TET_SP = 12f
