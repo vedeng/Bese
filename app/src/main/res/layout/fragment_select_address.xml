@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#c8c7f3"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:fitsSystemWindows="true">
+
+    <TextView
+        android:id="@+id/tv_select_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_10"
+        android:text="选择地址"/>
+
+    <TextView
+        android:id="@+id/tv_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_10"
+        android:text="地址: "/>
+
+</LinearLayout>
