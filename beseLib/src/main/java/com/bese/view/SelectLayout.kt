@@ -14,6 +14,7 @@ import kotlin.math.min
 
 /**
  * 选择容器，自动换行
+ *      默认子View全是TextView，如需要采用其他View，可继承自定义
  */
 class SelectLayout @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
     : FlexboxLayout(context, attrs, defStyleAttr) {
@@ -27,15 +28,18 @@ class SelectLayout @JvmOverloads constructor(context: Context, attrs: AttributeS
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.SelectLayout, defStyleAttr, 0)
         mMinSelectCount = typedArray.getInt(R.styleable.SelectLayout_minSelectCount, mMinSelectCount)
         mMaxSelectCount = typedArray.getInt(R.styleable.SelectLayout_maxSelectCount, mMaxSelectCount)
+        fixSelectCount()
         typedArray.recycle()
     }
 
     fun setMinSelectCount(count: Int) {
         mMinSelectCount = if (count < 0) 0 else count
+        fixSelectCount()
     }
 
     fun setMaxSelectCount(count: Int) {
         mMaxSelectCount = if (count < 1) 1 else count
+        fixSelectCount()
     }
 
     /**
@@ -44,12 +48,22 @@ class SelectLayout @JvmOverloads constructor(context: Context, attrs: AttributeS
     fun resetChildren(@LayoutRes childLayoutRes: Int, data: List<String?>?) {
         // 不适用于子View过多的情况
         removeAllViews()
-        data?.forEach {
-            val child = LayoutInflater.from(context).inflate(childLayoutRes, this, false)
-            addView(child)
-            (child as? TextView)?.run {
-                text = it
-                setOnClickListener { if (isSelected) unSelectChild(this) else selectChild(this) }
+        data?.let {
+            for (i in it.indices) {
+                val child = LayoutInflater.from(context).inflate(childLayoutRes, this, false)
+                addView(child)
+                (child as? TextView)?.run {
+                    text = it[i]
+                    setOnClickListener {
+                        if (isSelected) {
+                            unSelectChild(this)
+                            onSelectChangeListener?.onUnSelect(i, child)
+                        } else {
+                            selectChild(this)
+                            onSelectChangeListener?.onSelect(i, child)
+                        }
+                    }
+                }
             }
         }
         fixSelectCount()
@@ -99,6 +113,10 @@ class SelectLayout @JvmOverloads constructor(context: Context, attrs: AttributeS
             mSelectedChildList.first.isSelected = false
             mSelectedChildList.removeFirst()
         }
+    }
+
+    fun setSelectListener(selectListener: OnSelectChangeListener?) {
+        onSelectChangeListener = selectListener
     }
 
     interface OnSelectChangeListener {
