@@ -36,19 +36,6 @@ android {
         }
     }
 
-    // debug运行的默认取值是排序后的第一个，需要更改环境，可以通过Build Variants修改
-    productFlavors {
-        pro {
-            manifestPlaceholders = [ENV_SERVICE: name, APP_LABEL: "VEUI库", APP_ICON: "@mipmap/ic_launcher"]
-            flavorDimensions "bese"
-        }
-        exp {
-            applicationIdSuffix ".exam"     // 测试环境下更改包名，防止数据混乱。如不需要，可注释掉
-            manifestPlaceholders = [ENV_SERVICE: name, APP_LABEL: "VEUI-Test", APP_ICON: "@mipmap/ic_launcher"]
-            flavorDimensions "bese"
-        }
-    }
-
     android.applicationVariants.all { variant ->
         variant.outputs.all {
             //这里修改apk文件名, 区分release 和debug 包
@@ -103,7 +90,7 @@ dependencies {
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.47'
 
     // 网络框架
-    implementation 'com.github.vedeng:NetFrame:1.1.0'
+    implementation 'com.github.vedeng:NetFrame:1.2.0'
 
     // EventBus
     implementation "org.greenrobot:eventbus:3.2.0"

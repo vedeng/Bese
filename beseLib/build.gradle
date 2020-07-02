@@ -65,7 +65,4 @@ dependencies {
     // 百分比布局库
     api 'com.zhy:percent-support-extends:1.0.1'
 
-    // 图片压缩 luban
-    api 'com.github.vedeng:Luban:1.2'
-
 }

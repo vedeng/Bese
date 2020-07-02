@@ -360,8 +360,8 @@ class TextBannerView @JvmOverloads constructor(context: Context, attrs: Attribut
     init {
         init(context, attrs, defStyleAttr)
     }
-}
 
-interface TextBannerItemClickListener {
-    fun onItemClick(data: String?, position: Int)
+    interface TextBannerItemClickListener {
+        fun onItemClick(data: String?, position: Int)
+    }
 }

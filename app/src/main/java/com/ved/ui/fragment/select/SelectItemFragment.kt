@@ -1,5 +1,9 @@
 package com.ved.ui.fragment.select
 
+import android.view.View
+import android.widget.TextView
+import com.bese.view.SelectLayout
+import com.blankj.utilcode.util.LogUtils
 import com.ved.R
 import com.ved.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_select_item.*
@@ -19,11 +23,26 @@ class SelectItemFragment : BaseFragment() {
         initTitle("单选复选")
 
         fragment_select_item_sl_01?.run {
-            resetChildren(R.layout.item_select_label, generateLabels())
+            val list = generateLabels()
+            initChild(R.layout.item_select_label, list)
+            getViewList<TextView>().run {
+                for (i in indices) {
+                    get(i)?.text = list[i]
+                }
+            }
+            setSelectListener(object : SelectLayout.OnSelectChangeListener {
+                override fun onSelect(pos: Int, view: View) {
+                    LogUtils.e("选中=====", "$pos")
+                }
+                override fun onUnSelect(pos: Int, view: View) {
+                    LogUtils.e("取关=====", "$pos")
+                }
+
+            })
         }
 
         fragment_select_item_sl_02?.run {
-            resetChildren(R.layout.item_select_label, generateLabels())
+            initChild(R.layout.item_select_label, generateLabels())
         }
 
         val baseUseArea = "●单选复选场景使用，可自动换行，改变颜色。"
