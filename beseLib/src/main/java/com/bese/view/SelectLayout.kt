@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.TextView
 import androidx.annotation.LayoutRes
 import com.bese.R
 import com.google.android.flexbox.FlexboxLayout
@@ -44,29 +43,25 @@ class SelectLayout @JvmOverloads constructor(context: Context, attrs: AttributeS
     /**
      * 重置所有子View
      */
-    fun initChild(@LayoutRes childRes: Int, data: List<String?>?) {
+    fun initChild(@LayoutRes childRes: Int, childSize: Int) {
         // 不适用于子View过多的情况
         removeAllViews()
         mViewList = arrayListOf()
-        data?.let {
-            for (i in it.indices) {
-                val child = LayoutInflater.from(context).inflate(childRes, this, false)
-                addView(child)
-                mViewList.add(child)
-                child.setOnClickListener {
-                    if (isSelected) {
-                        unSelectChild(child)
-                        onSelectChangeListener?.onUnSelect(i, child)
-                    } else {
-                        selectChild(child)
-                        onSelectChangeListener?.onSelect(i, child)
-                    }
+        for (i in 0 until childSize) {
+            val child = LayoutInflater.from(context).inflate(childRes, this, false)
+            addView(child)
+            mViewList.add(child)
+            child.setOnClickListener {
+                if (isSelected) {
+                    unSelectChild(child)
+                    onSelectChangeListener?.onUnSelect(i, child)
+                } else {
+                    selectChild(child)
+                    onSelectChangeListener?.onSelect(i, child)
                 }
-//                (child as? TextView)?.let { tv ->
-//                    tv.text = it[i]
-//                }
             }
         }
+        // 适配数据长度后，检查修正min和max是否不符合规则
         fixSelectCount()
     }
 
