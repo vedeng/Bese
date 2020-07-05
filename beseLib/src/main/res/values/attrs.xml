@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <declare-styleable name="PointIndicator">
+        <attr name="child_shape_unselected" format="reference" />
+        <attr name="child_shape_selected" format="reference" />
+        <attr name="child_margin" format="dimension" />
+        <attr name="child_size" format="dimension" />
+        <attr name="child_width_selected" format="dimension" />
+        <attr name="child_color_unselected" format="color" />
+        <attr name="child_color_selected" format="color" />
+    </declare-styleable>
+
     <declare-styleable name="ImageRectView">
         <!--宽高比，1：正方形，2.0：瘦高图，0.5：扁图-->
         <attr name="squareRatio" format="float"/>

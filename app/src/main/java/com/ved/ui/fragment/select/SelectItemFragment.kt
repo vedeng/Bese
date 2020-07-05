@@ -24,7 +24,7 @@ class SelectItemFragment : BaseFragment() {
 
         fragment_select_item_sl_01?.run {
             val list = generateLabels()
-            initChild(R.layout.item_select_label, list)
+            initChild(R.layout.item_select_label, list.size)
             getViewList<TextView>().run {
                 for (i in indices) {
                     get(i)?.text = list[i]
@@ -42,7 +42,22 @@ class SelectItemFragment : BaseFragment() {
         }
 
         fragment_select_item_sl_02?.run {
-            initChild(R.layout.item_select_label, generateLabels())
+            val list = generateLabels()
+            initChild(R.layout.item_select_label, list.size)
+            getViewList<TextView>().run {
+                for (i in indices) {
+                    get(i)?.text = list[i]
+                }
+            }
+            setSelectListener(object : SelectLayout.OnSelectChangeListener {
+                override fun onSelect(pos: Int, view: View) {
+                    LogUtils.e("选中2=====", "$pos")
+                }
+                override fun onUnSelect(pos: Int, view: View) {
+                    LogUtils.e("取关2=====", "$pos")
+                }
+
+            })
         }
 
         val baseUseArea = "●单选复选场景使用，可自动换行，改变颜色。"

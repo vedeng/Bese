@@ -100,7 +100,7 @@ class DetailPicPickerActivity : BaseActivity() {
                         }
                         helper.itemView.item_img?.run {
                             setOnClickListener { openPreview(helper.adapterPosition) }
-                            PickerGlideImageLoader().displayImage(this@DetailPicPickerActivity, item.path, this)
+                            PickerGlideImageLoader().displayImage( item.path, this)
                         }
                     } else {
                         // 展示错误图

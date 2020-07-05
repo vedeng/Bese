@@ -80,7 +80,7 @@ class TextButton @JvmOverloads constructor(context: Context, attrs: AttributeSet
     /**
      * 更新背景Drawable
      */
-    private fun updateDrawable() {
+    fun updateDrawable() {
         normalDrawable = createSolidDrawable(cornerRadius, bgColor)
         pressedDrawable = createSolidDrawable(cornerRadius, bgColorPressed)
 

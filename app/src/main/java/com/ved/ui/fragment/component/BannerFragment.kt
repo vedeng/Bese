@@ -1,9 +1,8 @@
 package com.ved.ui.fragment.component
 
+import com.bese.util.BannerGlideImageLoader
 import com.ved.R
-import com.ved.glide.BannerGlideImageLoader
 import com.ved.ui.base.BaseFragment
-import kotlinx.android.synthetic.main.base_title_bar.*
 import kotlinx.android.synthetic.main.fragment_banner.*
 
 class BannerFragment : BaseFragment() {
@@ -28,10 +27,7 @@ class BannerFragment : BaseFragment() {
         activity_banner_banner_default?.setImageLoader(BannerGlideImageLoader())
         activity_banner_banner_default?.setImages(
             listOf(
-                "http://zhuxian.wanmei.com/resources/jpg/160707/41467872026447.jpg",
-                "http://zhuxian.wanmei.com/resources/jpg/160405/41459838236039.jpg",
-                "http://zhuxian.wanmei.com/resources/jpg/160707/41467862487756.jpg",
-                ""
+                "http://zhuxian.wanmei.com/resources/jpg/160707/41467872026447.jpg"
             )
         )
         activity_banner_banner_default?.start()
@@ -39,9 +35,14 @@ class BannerFragment : BaseFragment() {
         activity_banner_banner_one?.setImageLoader(BannerGlideImageLoader())
         activity_banner_banner_one?.setImages(
             listOf(
-                "http://zhuxian.wanmei.com/resources/jpg/160707/41467872026447.jpg"
+                "http://zhuxian.wanmei.com/resources/jpg/160707/41467872026447.jpg",
+                "http://zhuxian.wanmei.com/resources/jpg/160707/41467872026447.jpg",
+                "http://zhuxian.wanmei.com/resources/jpg/160405/41459838236039.jpg",
+                "http://zhuxian.wanmei.com/resources/jpg/160707/41467862487756.jpg",
+                ""
             )
         )
+        point_indicator?.bindBanner(activity_banner_banner_one)
         activity_banner_banner_one?.start()
 
     }

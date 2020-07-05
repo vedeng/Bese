@@ -33,9 +33,9 @@ class ImageRectView @JvmOverloads constructor(context: Context, attrs: Attribute
     private var radius = floatArrayOf()
 
     init {
-        // EVEN_ODD  把Path外部丢弃，保留内部； INVERSE_EVEN_ODD  把Path内部丢弃，保留外部
+        // EVEN_ODD  clip and save inner area,  INVERSE_EVEN_ODD  clip and save out area
         mPath.fillType = Path.FillType.INVERSE_EVEN_ODD
-        // 抗锯齿
+        // anti-alias property
         mPaint.isAntiAlias = true
 
         scaleType = ScaleType.CENTER_CROP

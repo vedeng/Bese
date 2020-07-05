@@ -11,32 +11,21 @@ import com.pic.picker.loader.ImageLoader
  * Glide封装使用 图片选择库使用
  */
 class PickerGlideImageLoader : ImageLoader {
-    fun displayImage(context: Context?, path: Any?, imageView: ImageView?) {
+
+    fun displayImage(path: Any?, imageView: ImageView?) {
         try {
-            Glide.with(context!!).load(path).into(imageView!!)
+            imageView?.run { Glide.with(this).load(path).into(this) }
         } catch (e: Exception) {
             Log.e("GlideImageLoader Error:", e.message + "")
         }
     }
 
-    override fun displayImage(
-        activity: Activity,
-        path: String,
-        imageView: ImageView,
-        width: Int,
-        height: Int
-    ) {
-        displayImage(activity, path, imageView)
+    override fun displayImage(activity: Activity, path: String?, imageView: ImageView?, width: Int, height: Int) {
+        displayImage(path, imageView)
     }
 
-    override fun displayImagePreview(
-        activity: Activity,
-        path: String,
-        imageView: ImageView,
-        width: Int,
-        height: Int
-    ) {
-        displayImage(activity, path, imageView)
+    override fun displayImagePreview(activity: Activity, path: String?, imageView: ImageView?, width: Int, height: Int) {
+        displayImage(path, imageView)
     }
 
     override fun clearMemoryCache() {}

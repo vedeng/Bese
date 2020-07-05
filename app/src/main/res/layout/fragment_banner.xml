@@ -34,11 +34,25 @@
                 android:layout_margin="10dp"
                 android:text="一张图片，无指示器，不可滑动。" />
 
-            <com.youth.banner.Banner
-                android:id="@+id/activity_banner_banner_one"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                app:banner_default_image="@drawable/svg_placeholder" />
+                android:layout_height="wrap_content">
+
+                <com.youth.banner.Banner
+                    android:id="@+id/activity_banner_banner_one"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    app:banner_default_image="@drawable/svg_placeholder" />
+
+                <com.bese.view.PointIndicator
+                    android:id="@+id/point_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="15dp"
+                    android:gravity="center"/>
+
+            </FrameLayout>
 
             <include layout="@layout/base_content" />
 

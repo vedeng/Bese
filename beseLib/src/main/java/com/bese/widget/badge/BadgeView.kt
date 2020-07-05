@@ -353,7 +353,7 @@ class BadgeView constructor(context: Context) : View(context) {
         return this
     }
 
-    fun setBadgeText(badgeText: String): BadgeView {
+    fun setBadgeText(badgeText: String?): BadgeView {
         mBadgeText = badgeText
         mBadgeNumber = 1
         measureText()
@@ -361,8 +361,12 @@ class BadgeView constructor(context: Context) : View(context) {
         return this
     }
 
-    fun getBadgeText(): String {
-        return mBadgeText ?: ""
+    fun setBadgePoint() {
+        setBadgeText("")
+    }
+
+    fun getBadgeText(): String? {
+        return mBadgeText
     }
 
     fun setExactMode(isExact: Boolean): BadgeView {
