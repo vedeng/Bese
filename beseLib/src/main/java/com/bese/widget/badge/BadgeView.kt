@@ -365,6 +365,10 @@ class BadgeView constructor(context: Context) : View(context) {
         setBadgeText("")
     }
 
+    fun setBadgeHide() {
+        setBadgeText(null)
+    }
+
     fun getBadgeText(): String? {
         return mBadgeText
     }

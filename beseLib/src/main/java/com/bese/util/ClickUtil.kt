@@ -24,7 +24,7 @@ object ClickUtil {
     /**
      * 判断两次点击的间隔，如果小于diff，则认为是多次无效点击
      */
-    private fun isFastDoubleClick(buttonId: Int?, diff: Long = DIFF): Boolean {
+    fun isFastDoubleClick(buttonId: Int?, diff: Long = DIFF): Boolean {
         val time = System.currentTimeMillis()
         val timeD = time - lastClickTime
         if (lastButtonId == buttonId && lastClickTime > 0 && timeD < diff) {

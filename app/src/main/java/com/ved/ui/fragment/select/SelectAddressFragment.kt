@@ -61,11 +61,6 @@ class SelectAddressFragment : BaseFragment(), DataLoadPresenter {
                     return
                 }
             }
-
-            override fun onException(exception: Exception, content: Any?) {
-                super.onException(exception, content)
-            }
-
         })
     }
 
