@@ -149,13 +149,13 @@ abstract class BaseFragment : Fragment(), View.OnClickListener {
      * Fragment跳转全局配置
      */
     fun navigate(action: Int, bundle: Bundle? = null, option: NavOptions = getNavOption()) {
-        if (!ClickUtil.filterGlobal()) findNavController().navigate(action, bundle, option)
+        if (!ClickUtil.isFastDoubleClick()) findNavController().navigate(action, bundle, option)
     }
 
     /**
      * Fragment跳转全局配置
      */
     fun navigateTo(aimId: Int, pushStack: Boolean = true) {
-        if (!ClickUtil.filterGlobal()) findNavController().popBackStack(aimId, pushStack)
+        if (!ClickUtil.isFastDoubleClick()) findNavController().popBackStack(aimId, pushStack)
     }
 }

@@ -21,9 +21,9 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.bese.R
-import com.bese.util.StringUtil
 
 import com.blankj.utilcode.util.SizeUtils
+import com.vedeng.library.util.StringUtil
 
 import java.io.UnsupportedEncodingException
 import java.util.ArrayList

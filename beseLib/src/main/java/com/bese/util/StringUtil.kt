@@ -1,31 +1,36 @@
-package com.bese.util
+package com.vedeng.library.util
 
 import android.text.InputFilter
+import android.text.Spanned
 import android.text.TextUtils
-
 import java.io.UnsupportedEncodingException
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.util.regex.Pattern
 
 /**
- * String处理的工具类
+ * <>对String处理的工具类>
+ *
+ * @author Fires
+ * @date 2019/6/27
  */
 object StringUtil {
-
     var MONEY_ZERO = "¥0.00"
     var AMOUNT_ZERO = "0.00"
-
     var RMB_CHINESE = "￥"
     var RMB_NUMBER = "¥"
     var DOLLAR = "$"
-
     var SPACE_CHINESE = "　"
 
     /**
      * 手机号正则
      */
     private val MOBILE_PATTERN = Pattern.compile("^[1][3-9][0-9]{9}$")
+
+    /**
+     * 邮箱正则
+     */
+    const val REGEX_MAIL = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$"
 
     /**
      * 价格正则
@@ -38,28 +43,9 @@ object StringUtil {
     private val EMOJI_PATTERN = Pattern.compile("[^\\u0000-\\uFFFF]")
 
     /**
-     * 验证邮箱 的正则
-     */
-    private val EMAIL_PATTERN = Pattern.compile("^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$")
-
-    /**
-     * 特殊字符集
-     */
-
-    var FILTER_SPECIAL = "` ~!@#$%^&*()_+=|{}':;,\\[\\].<>/~！×@#￥%……&*（）——+|{}【】‘；：”“’。，、？?\"\\\\-》《"
-
-    var emojiFilter = InputFilter { source, _, _, _, _, _ ->
-        if (isEmoji(source.toString())) {
-            ""
-        } else {
-            source
-        }
-    }
-
-    /**
      * 验证手机号
      */
-    fun isMobile(str: String): Boolean {
+    fun isMobile(str: String?): Boolean {
         if (TextUtils.isEmpty(str)) {
             return false
         }
@@ -67,7 +53,11 @@ object StringUtil {
         return matcher.matches()
     }
 
-    fun checkingEmail(email: String): Boolean {
+    /**
+     * 验证邮箱
+     */
+    private val EMAIL_PATTERN = Pattern.compile(REGEX_MAIL)
+    fun checkingEmail(email: String?): Boolean {
         if (TextUtils.isEmpty(email)) {
             return false
         }
@@ -82,8 +72,9 @@ object StringUtil {
      * @return
      */
     fun isEmojiCharacter(codePoint: Char): Boolean {
-        return codePoint.toInt() == 0x0 || codePoint.toInt() == 0x9 || codePoint.toInt() == 0xA || codePoint.toInt() == 0xD
-                || codePoint.toInt() in 0x20..0xD7FF || codePoint.toInt() in 0xE000..0xFFFD || codePoint.toInt() in 0x10000..0x10FFFF
+        return codePoint.toInt() == 0x0 || codePoint.toInt() == 0x9 || codePoint.toInt() == 0xA ||
+                codePoint.toInt() == 0xD || codePoint.toInt() in 0x20..0xD7FF ||
+                codePoint.toInt() in 0xE000..0xFFFD || codePoint.toInt() in 0x10000..0x10FFFF
     }
 
     /**
@@ -108,6 +99,11 @@ object StringUtil {
         return false
     }
 
+    /**
+     * 去掉特殊字符
+     */
+    var FILTER_SPECIAL = "` ~!@#$%^&*()_+=|{}':;,\\[\\].<>/~！×@#￥%……&*（）——+|{}【】‘；：”“’。，、？?\"\\\\-》《"
+    @JvmStatic
     fun filterSpecialChar(key: String): String {
         val str = StringBuilder()
         if (!TextUtils.isEmpty(key)) {
@@ -120,7 +116,6 @@ object StringUtil {
         return str.toString()
     }
 
-
     /**
      * 判定输入汉字
      *
@@ -129,14 +124,16 @@ object StringUtil {
      */
     private fun isChineseChar(c: Char): Boolean {
         val ub = Character.UnicodeBlock.of(c)
-        val isChineseCharFlag: Boolean
+        var isChineseCharFlag: Boolean = false
         isChineseCharFlag = when {
             ub === Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS -> true
             ub === Character.UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS -> true
             ub === Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A -> true
             ub === Character.UnicodeBlock.GENERAL_PUNCTUATION -> true
             ub === Character.UnicodeBlock.CJK_SYMBOLS_AND_PUNCTUATION -> true
-            else -> ub === Character.UnicodeBlock.HALFWIDTH_AND_FULLWIDTH_FORMS
+            else -> {
+                ub === Character.UnicodeBlock.HALFWIDTH_AND_FULLWIDTH_FORMS
+            }
         }
         return isChineseCharFlag
     }
@@ -160,57 +157,58 @@ object StringUtil {
      * 获取输入数字格式化后的价格
      * 纯价格展示，两位小数，不带人民币符号
      */
-    fun getFormatPrice(p: String): String {
-        var price = p
+    fun getFormatPrice(price: String): String {
+        var price = price
         if (TextUtils.isEmpty(price) || "NULL".equals(price, ignoreCase = true)) {
             return AMOUNT_ZERO
         }
         price = price.trim { it <= ' ' }
-        if (price.startsWith(RMB_CHINESE) || price.startsWith(RMB_NUMBER) || price.startsWith(
-                DOLLAR
-            )) {
+        if (price.startsWith(RMB_CHINESE) || price.startsWith(RMB_NUMBER) || price.startsWith(DOLLAR)) {
             price = price.substring(1)
         }
-
         return if (isDouble(price)) {
             val df = DecimalFormat("##0.00")
             df.roundingMode = RoundingMode.FLOOR
-            df.format(java.lang.Double.parseDouble(price))
+            df.format(price.toDouble())
         } else {
             // 价格不符合价格规则，可以收集日志
             price
         }
     }
 
+    /**
+     * 获取数字格式化后的价格
+     * 带人民币符号
+     */
+    fun getFormatPriceWithRMB(price: String): String {
+        return getFormatPriceWithRMB(price, false)
+    }
 
     /**
      * 获取输入数字格式化后的价格: 长度很大时格式化以万计或亿计
      */
-    fun getFormatPriceWithRMB(price: String, isFormat: Boolean = false): String {
+    fun getFormatPriceWithRMB(price: String, priceBlur: Boolean): String {
         val amount = getFormatPrice(price)
         var priceUnit = AMOUNT_ZERO
-        if (isFormat) {
+        if (priceBlur) {
             if (!TextUtils.isEmpty(amount) && amount.contains(".")) {
-                val pre =
-                    amount.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0]
-                when {
-                    pre.length <= 4 -> priceUnit = amount
-                    pre.length <= 8 -> {
-                        // 以万为单位处理
-                        var p = java.lang.Double.parseDouble(pre)
-                        p /= 10000
-                        val df = DecimalFormat("##0.00")
-                        df.roundingMode = RoundingMode.FLOOR
-                        priceUnit = df.format(p) + "万"
-                    }
-                    else -> {
-                        // 以亿为单位处理，包括大于万亿以外的情况
-                        var p = java.lang.Double.parseDouble(pre)
-                        p /= 100000000
-                        val df = DecimalFormat("##0.00")
-                        df.roundingMode = RoundingMode.FLOOR
-                        priceUnit = df.format(p) + "亿"
-                    }
+                val pre = amount.split("\\.").toTypedArray()[0]
+                if (pre.length <= 4) {
+                    priceUnit = amount
+                } else if (pre.length <= 8) {
+                    // 以万为单位处理
+                    var p = pre.toDouble()
+                    p /= 10000
+                    val df = DecimalFormat("##0.00")
+                    df.roundingMode = RoundingMode.FLOOR
+                    priceUnit = df.format(p) + "万"
+                } else {
+                    // 以亿为单位处理，包括大于万亿以外的情况
+                    var p = pre.toDouble()
+                    p /= 100000000
+                    val df = DecimalFormat("##0.00")
+                    df.roundingMode = RoundingMode.FLOOR
+                    priceUnit = df.format(p) + "亿"
                 }
             }
         } else {
@@ -230,6 +228,30 @@ object StringUtil {
         return matcher.find()
     }
 
+    /**
+     * 判断价格是否为0
+     * @param price 价格
+     * @return  是否不为0
+     */
+    fun priceNotZero(price: String): Boolean {
+        var price = price
+        price = getFormatPrice(price)
+        return if (isDouble(price)) {
+            price.toDouble() != 0.0
+        } else {
+            false
+        }
+    }
+
+    fun priceCompare(price1: String, price2: String): Int {
+        var price1 = price1
+        var price2 = price2
+        price1 = getFormatPrice(price1)
+        price2 = getFormatPrice(price2)
+        val d1 = price1.toDouble()
+        val d2 = price2.toDouble()
+        return d1.compareTo(d2)
+    }
 
     /**
      * 手机号隐藏部分字符工具
@@ -246,7 +268,7 @@ object StringUtil {
     /**
      * 手机号以344格式插入空格
      */
-    fun phoneWithSpace(phone: String): String? {
+    fun phoneWithSpace(phone: String): String {
         return if (!TextUtils.isEmpty(phone) && phone.length > 7) {
             phone.substring(0, 3) + " " + phone.substring(3, 7) + " " + phone.substring(phone.length - 4)
         } else {
@@ -267,7 +289,6 @@ object StringUtil {
         } catch (e: UnsupportedEncodingException) {
             e.printStackTrace()
         }
-
         return false
     }
 
@@ -286,6 +307,14 @@ object StringUtil {
             m.find()
         } else {
             false
+        }
+    }
+
+    var emojiFilter = InputFilter { source, _, _, _, _, _ ->
+        if (isEmoji(source.toString())) {
+            ""
+        } else {
+            source
         }
     }
 }
