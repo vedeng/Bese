@@ -157,8 +157,8 @@ object StringUtil {
      * 获取输入数字格式化后的价格
      * 纯价格展示，两位小数，不带人民币符号
      */
-    fun getFormatPrice(price: String): String {
-        var price = price
+    fun getFormatPrice(price: String?): String {
+        var price = price ?: ""
         if (TextUtils.isEmpty(price) || "NULL".equals(price, ignoreCase = true)) {
             return AMOUNT_ZERO
         }
@@ -180,14 +180,14 @@ object StringUtil {
      * 获取数字格式化后的价格
      * 带人民币符号
      */
-    fun getFormatPriceWithRMB(price: String): String {
+    fun getFormatPriceWithRMB(price: String?): String {
         return getFormatPriceWithRMB(price, false)
     }
 
     /**
      * 获取输入数字格式化后的价格: 长度很大时格式化以万计或亿计
      */
-    fun getFormatPriceWithRMB(price: String, priceBlur: Boolean): String {
+    fun getFormatPriceWithRMB(price: String?, priceBlur: Boolean): String {
         val amount = getFormatPrice(price)
         var priceUnit = AMOUNT_ZERO
         if (priceBlur) {
