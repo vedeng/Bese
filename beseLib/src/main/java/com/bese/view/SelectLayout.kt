@@ -43,7 +43,7 @@ class SelectLayout @JvmOverloads constructor(context: Context, attrs: AttributeS
     /**
      * 重置所有子View
      */
-    fun initChild(@LayoutRes childRes: Int, childSize: Int) {
+    fun initChild(@LayoutRes childRes: Int, childSize: Int, defaultSelect: Int = -1) {
         // 不适用于子View过多的情况
         removeAllViews()
         mViewList = arrayListOf()
@@ -51,6 +51,7 @@ class SelectLayout @JvmOverloads constructor(context: Context, attrs: AttributeS
             val child = LayoutInflater.from(context).inflate(childRes, this, false)
             addView(child)
             mViewList.add(child)
+            if (i == defaultSelect) selectChild(child)
             child.setOnClickListener {
                 if (isSelected) {
                     unSelectChild(child)
@@ -106,14 +107,14 @@ class SelectLayout @JvmOverloads constructor(context: Context, attrs: AttributeS
         }
     }
 
-    private fun unSelectChild(child: View) {
+    fun unSelectChild(child: View) {
         if (mSelectedChildList.size > mMinSelectCount && child.isSelected) {
             child.isSelected = false
             mSelectedChildList.remove(child)
         }
     }
 
-    private fun selectChild(child: View) {
+    fun selectChild(child: View) {
         if (!child.isSelected) {
             child.isSelected = true
             mSelectedChildList.addLast(child)

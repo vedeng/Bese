@@ -1,7 +1,6 @@
-package com.vedeng.library.util
+package com.bese.util
 
 import android.text.InputFilter
-import android.text.Spanned
 import android.text.TextUtils
 import java.io.UnsupportedEncodingException
 import java.math.RoundingMode
@@ -192,7 +191,7 @@ object StringUtil {
         var priceUnit = AMOUNT_ZERO
         if (priceBlur) {
             if (!TextUtils.isEmpty(amount) && amount.contains(".")) {
-                val pre = amount.split("\\.").toTypedArray()[0]
+                val pre = amount.split(".").toTypedArray()[0]
                 if (pre.length <= 4) {
                     priceUnit = amount
                 } else if (pre.length <= 8) {
