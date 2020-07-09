@@ -68,7 +68,7 @@ class SelectTextLayout @JvmOverloads constructor(context: Context, attrs: Attrib
     /**
      * 重置所有子View
      */
-    fun initChild(childList: ArrayList<SelectTextAttr> = arrayListOf(), enableUnSelect: Boolean = false) {
+    fun initChild(childList: ArrayList<SelectTextAttr>, enableUnSelect: Boolean = false) {
         // 不适用于子View过多的情况
         removeAllViews()
         mViewList = arrayListOf()
@@ -138,6 +138,10 @@ class SelectTextLayout @JvmOverloads constructor(context: Context, attrs: Attrib
             }
             mSelectedChildList.removeFirst()
         }
+    }
+
+    fun getSelectList() : LinkedList<TextView> {
+        return mSelectedChildList
     }
 
     fun setSelectListener(selectListener: OnSelectChangeListener?) {
