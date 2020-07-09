@@ -24,7 +24,7 @@
                 android:padding="@dimen/dp_10"
                 android:text="单选" />
 
-            <com.bese.view.SelectLayout
+            <com.bese.view.SelectTextLayout
                 android:id="@+id/fragment_select_item_sl_01"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
                 android:padding="@dimen/dp_10"
                 android:text="复选" />
 
-            <com.bese.view.SelectLayout
+            <com.bese.view.SelectTextLayout
                 android:id="@+id/fragment_select_item_sl_02"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -1,8 +1,8 @@
 package com.ved.ui.fragment.select
 
 import android.view.View
-import android.widget.TextView
-import com.bese.view.SelectLayout
+import com.bese.view.SelectTextAttr
+import com.bese.view.SelectTextLayout
 import com.blankj.utilcode.util.LogUtils
 import com.ved.R
 import com.ved.ui.base.BaseFragment
@@ -24,13 +24,8 @@ class SelectItemFragment : BaseFragment() {
 
         fragment_select_item_sl_01?.run {
             val list = generateLabels()
-            initChild(R.layout.item_select_label, list.size)
-            getViewList<TextView>().run {
-                for (i in indices) {
-                    get(i)?.text = list[i]
-                }
-            }
-            setSelectListener(object : SelectLayout.OnSelectChangeListener {
+            initChild(list)
+            setSelectListener(object : SelectTextLayout.OnSelectChangeListener {
                 override fun onSelect(pos: Int, view: View) {
                     LogUtils.e("选中=====", "$pos")
                 }
@@ -43,13 +38,8 @@ class SelectItemFragment : BaseFragment() {
 
         fragment_select_item_sl_02?.run {
             val list = generateLabels()
-            initChild(R.layout.item_select_label, list.size)
-            getViewList<TextView>().run {
-                for (i in indices) {
-                    get(i)?.text = list[i]
-                }
-            }
-            setSelectListener(object : SelectLayout.OnSelectChangeListener {
+            initChild(list, true)
+            setSelectListener(object : SelectTextLayout.OnSelectChangeListener {
                 override fun onSelect(pos: Int, view: View) {
                     LogUtils.e("选中2=====", "$pos")
                 }
@@ -78,10 +68,10 @@ class SelectItemFragment : BaseFragment() {
     override fun doExecute() {
     }
 
-    private fun generateLabels(): List<String> {
-        val list = arrayListOf<String>()
+    private fun generateLabels(): ArrayList<SelectTextAttr> {
+        val list = arrayListOf<SelectTextAttr>()
         for (index in 0..Random.nextInt(5, 20)) {
-            list.add("标签$index")
+            list.add(SelectTextAttr("标签$index", false, Random.nextBoolean()))
         }
         return list
     }
