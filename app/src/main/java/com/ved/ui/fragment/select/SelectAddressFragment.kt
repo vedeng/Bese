@@ -56,10 +56,7 @@ class SelectAddressFragment : BaseFragment(), DataLoadPresenter {
     override fun onAddressDataLoad(id: String?, type: Int, handler: Handler) {
         RegionRequest().request(RegionRequest.Param(id), object : BaseCallback<RegionListResponse>() {
             override fun onSuccess(response: RegionListResponse?) {
-                response?.data?.run {
-                    handler.sendMessage(Message.obtain(handler, type, this))
-                    return
-                }
+                handler.sendMessage(Message.obtain(handler, type, response?.data))
             }
         })
     }

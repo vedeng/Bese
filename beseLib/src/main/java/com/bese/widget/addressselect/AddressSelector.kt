@@ -18,7 +18,7 @@ import java.util.*
 /**
  * 地址选择器
  */
-class AddressSelector(private val context: Context, var loadPresenter: DataLoadPresenter?,
+class AddressSelector(private val context: Context, private var loadPresenter: DataLoadPresenter?,
                       province: Region? = null, city: Region? = null, district: Region? = null, street: Region? = null)
     : AdapterView.OnItemClickListener {
 
@@ -82,12 +82,15 @@ class AddressSelector(private val context: Context, var loadPresenter: DataLoadP
                     cityList = msg.obj as? ArrayList<Region>
                     cityAdapter?.notifyDataSetChanged()
                     if (cityList?.isNotEmpty() == true) {
+                        listView?.adapter = cityAdapter
+                        tabIndex = INDEX_TAB_CITY
                         if (echo) {
                             reloadAddress(2)
                         } else {
-                            tabIndex = INDEX_TAB_CITY
-                            // 以次级内容更新列表
-                            listView?.adapter = cityAdapter
+                            if (ADDRESS_LIST_DEEP_TYPE >= DEEP_THREE) {
+                                tabIndex = INDEX_TAB_CITY
+                                listView?.adapter = cityAdapter
+                            }
                         }
                     } else {
                         // 次级无内容，回调
@@ -103,10 +106,9 @@ class AddressSelector(private val context: Context, var loadPresenter: DataLoadP
                         if (echo) {
                             reloadAddress(3)
                         } else {
-                            if (ADDRESS_LIST_DEEP_TYPE == DEEP_FOUR) {
+                            if (ADDRESS_LIST_DEEP_TYPE >= DEEP_FOUR) {
                                 tabIndex = INDEX_TAB_DISTRICT
-                                // 以次级内容更新列表
-                                listView?.adapter = districtAdapter
+                                listView?.adapter = districtAdapter               // 以次级内容更新列表
                             }
                         }
                     } else {
@@ -263,22 +265,23 @@ class AddressSelector(private val context: Context, var loadPresenter: DataLoadP
             textViewStreet?.visibility = View.VISIBLE
         } else if (tabIndex == INDEX_TAB_DISTRICT) {             // Tab 在 区县， 省市Tab可见
             textViewCity?.visibility = View.VISIBLE
-            textViewDistrict?.visibility = View.VISIBLE
-            textViewStreet?.visibility = if (ADDRESS_LIST_DEEP_TYPE == DEEP_FOUR) View.VISIBLE else View.GONE
+            textViewDistrict?.visibility = if (ADDRESS_LIST_DEEP_TYPE >= DEEP_THREE) View.VISIBLE else View.GONE
+            textViewStreet?.visibility = if (ADDRESS_LIST_DEEP_TYPE >= DEEP_FOUR) View.VISIBLE else View.GONE
             if (TextUtils.isEmpty(selectDistrict?.regionName)) {
                 textViewStreet?.visibility = View.GONE
             }
         } else if (tabIndex == INDEX_TAB_CITY) {            // Tab 在 市， 省Tab可见
             textViewCity?.visibility = View.VISIBLE
-            textViewDistrict?.visibility = View.VISIBLE
-            textViewStreet?.visibility = if (ADDRESS_LIST_DEEP_TYPE == DEEP_FOUR) View.VISIBLE else View.GONE
+            textViewDistrict?.visibility = if (ADDRESS_LIST_DEEP_TYPE >= DEEP_THREE) View.VISIBLE else View.GONE
+            textViewStreet?.visibility = if (ADDRESS_LIST_DEEP_TYPE >= DEEP_FOUR) View.VISIBLE else View.GONE
             if (TextUtils.isEmpty(selectCity?.regionName)) {
                 // 街道在四级时也许可见，但选择后必不可见
                 textViewDistrict?.visibility = View.GONE
                 textViewStreet?.visibility = View.GONE
             }
         } else if (tabIndex == INDEX_TAB_PROVINCE) {            // Tab 在 省， 只有省Tab可见
-            textViewStreet?.visibility = if (ADDRESS_LIST_DEEP_TYPE == DEEP_FOUR) View.VISIBLE else View.GONE
+            textViewDistrict?.visibility = if (ADDRESS_LIST_DEEP_TYPE >= DEEP_THREE) View.VISIBLE else View.GONE
+            textViewStreet?.visibility = if (ADDRESS_LIST_DEEP_TYPE >= DEEP_FOUR) View.VISIBLE else View.GONE
             if (TextUtils.isEmpty(selectProvince?.regionName)) {
                 textViewCity?.visibility = View.GONE
                 textViewDistrict?.visibility = View.GONE
@@ -428,32 +431,35 @@ class AddressSelector(private val context: Context, var loadPresenter: DataLoadP
                 districtList = null
                 streetList = null
                 // 更新选中
+                provinceAdapter?.notifyDataSetChanged()
                 cityAdapter?.notifyDataSetChanged()
                 districtAdapter?.notifyDataSetChanged()
                 streetAdapter?.notifyDataSetChanged()
-                provinceAdapter?.notifyDataSetChanged()
             }
             INDEX_TAB_CITY -> {
                 selectCity = cityAdapter?.getItem(position) ?: Region()
                 updateTabUI(false)
-                loadCountiesWith(selectCity?.regionId)          //根据城市的id,从数据库中查询城市列表
-                // 清空子级数据
-                selectDistrict = Region()
-                selectStreet = Region()
-                districtList = null
-                streetList = null
                 // 更新选中效果
-                districtAdapter?.notifyDataSetChanged()
-                streetAdapter?.notifyDataSetChanged()
                 cityAdapter?.notifyDataSetChanged()
+                if (ADDRESS_LIST_DEEP_TYPE >= DEEP_THREE) {
+                    loadCountiesWith(selectCity?.regionId)          //根据城市的id,从数据库中查询城市列表
+                    // 清空子级数据
+                    selectDistrict = Region()
+                    selectStreet = Region()
+                    districtList = null
+                    streetList = null
+                    districtAdapter?.notifyDataSetChanged()
+                    streetAdapter?.notifyDataSetChanged()
+                } else {
+                    selectOver(true)
+                }
             }
             INDEX_TAB_DISTRICT -> {
                 selectDistrict = districtAdapter?.getItem(position) ?: Region()
                 updateTabUI(false)
                 // 更新选中效果
                 districtAdapter?.notifyDataSetChanged()
-                if (ADDRESS_LIST_DEEP_TYPE == DEEP_FOUR) {
-                    updateTabUI(false)
+                if (ADDRESS_LIST_DEEP_TYPE >= DEEP_FOUR) {
                     loadStreetsWith(selectDistrict?.regionId)
                     selectStreet = Region()
                     streetList = null
@@ -720,35 +726,12 @@ class AddressSelector(private val context: Context, var loadPresenter: DataLoadP
         onAddressSelectedListener = listener
     }
 
-    /**
-     * 根据code 来显示选择过的地区
-     */
-    fun setSelectedArea(province: Region?, city: Region?, district: Region?, street: Region?) {
-        if (province != null && city != null && district != null) {
-            selectProvince = province
-            selectCity = city
-            selectDistrict = district
-            selectStreet = street
-            textViewProvince?.text = province.regionName
-            textViewCity?.text = city.regionName
-            textViewDistrict?.text = district.regionName
-            if (ADDRESS_LIST_DEEP_TYPE == DEEP_FOUR) {
-                if (street != null) {
-                    tabIndex = INDEX_TAB_STREET
-                    textViewStreet?.text = street.regionName
-                    // 回显地址数据：到第四级
-                    loadStreetsWith(district.regionId)
-                }
-            } else {
-                // 回显地址数据：只到三级
-                loadCitiesWith(province.regionId)
-                loadCountiesWith(city.regionId)
-            }
+    fun setAddressDeep(deepType: Int = 3) {
+        ADDRESS_LIST_DEEP_TYPE = when (deepType) {
+            2 -> DEEP_TWO
+            4 -> DEEP_THREE
+            else -> DEEP_FOUR
         }
-    }
-
-    fun setAddressWithStreet(withStreet: Boolean = false) {
-        ADDRESS_LIST_DEEP_TYPE = if (withStreet) DEEP_FOUR else DEEP_THREE
     }
 
     companion object {
@@ -772,8 +755,9 @@ class AddressSelector(private val context: Context, var loadPresenter: DataLoadP
          * 定义省市区选择的深度类型
          * 如果是普通型1，就是省市区三级。如果是深度型2，就是省市区街道4级
          */
-        private const val DEEP_THREE = 1
-        private const val DEEP_FOUR = 2
+        const val DEEP_TWO = 2
+        const val DEEP_THREE = 3
+        const val DEEP_FOUR = 4
         private var ADDRESS_LIST_DEEP_TYPE = DEEP_THREE
 
         /** 未选中的字体展示 */
@@ -794,20 +778,22 @@ class AddressSelector(private val context: Context, var loadPresenter: DataLoadP
                 echoLevel = 2
                 selectCity = c
                 textViewCity?.text = c.regionName
-                district?.let { d ->
-                    echoLevel = 3
-                    selectDistrict = d
-                    textViewDistrict?.text = d.regionName
-                    if (ADDRESS_LIST_DEEP_TYPE == DEEP_FOUR) {
-                        street?.let { s ->
-                            echoLevel = 4
-                            selectStreet = s
-                            textViewStreet?.text = s.regionName
+                if (ADDRESS_LIST_DEEP_TYPE >= DEEP_THREE) {
+                    district?.let { d ->
+                        echoLevel = 3
+                        selectDistrict = d
+                        textViewDistrict?.text = d.regionName
+                        if (ADDRESS_LIST_DEEP_TYPE >= DEEP_FOUR) {
+                            street?.let { s ->
+                                echoLevel = 4
+                                selectStreet = s
+                                textViewStreet?.text = s.regionName
+                            }
+                            loadStreetsWith(d.regionId)
                         }
-                        loadStreetsWith(d.regionId)
                     }
+                    loadCountiesWith(c.regionId)
                 }
-                loadCountiesWith(c.regionId)
             }
             loadCitiesWith(p.regionId)
         }

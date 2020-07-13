@@ -12,8 +12,7 @@ import com.bese.R
  * < 地址选择弹窗 >
  *     传入需要回显的地址数据时，省市区按顺序不能为空
  */
-class AddressSelectDialog(private val mCtx: Context)
-    : DialogFragment() {
+class AddressSelectDialog(private val mCtx: Context) : DialogFragment() {
 
     private var selector: AddressSelector? = null
     private var selectListener: OnAddressSelectedListener? = null
@@ -47,6 +46,7 @@ class AddressSelectDialog(private val mCtx: Context)
                 override fun dialogClose() { dismiss() }
             })
             setOnAddressSelectedListener(selectListener)
+            setAddressDeep(AddressSelector.DEEP_TWO)
         }
 
         return Dialog(mCtx, R.style.Dialog_Fullscreen_Bottom).apply {

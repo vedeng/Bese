@@ -226,7 +226,7 @@ class NumEditor @JvmOverloads constructor(private val mCtx: Context, var attrs: 
         return mCount
     }
 
-    fun setNumLimit(min: Int = 1, max: Int = mBuyMax, source: Int = max) {
+    fun setNumLimit(min: Int = mBuyMin, max: Int = mBuyMax, source: Int = max) {
         mBuyMin = min
         mBuyMax = max
         inventoryLimit = if (inventoryFlag) source else max
