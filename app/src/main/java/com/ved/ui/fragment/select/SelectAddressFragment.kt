@@ -2,10 +2,7 @@ package com.ved.ui.fragment.select
 
 import android.os.Handler
 import android.os.Message
-import com.bese.widget.addressselect.AddressSelectDialog
-import com.bese.widget.addressselect.DataLoadPresenter
-import com.bese.widget.addressselect.OnAddressSelectedListener
-import com.bese.widget.addressselect.Region
+import com.bese.widget.addressselect.*
 import com.blankj.utilcode.util.ToastUtils
 import com.netlib.BaseCallback
 import com.ved.R
@@ -22,6 +19,8 @@ class SelectAddressFragment : BaseFragment(), DataLoadPresenter {
     var selectCity: Region? = null
     var selectDistrict: Region? = null
     var selectStreet: Region? = null
+
+    private var deep = 3
 
     override fun loadView(): Int {
         return R.layout.fragment_select_address
@@ -40,17 +39,35 @@ class SelectAddressFragment : BaseFragment(), DataLoadPresenter {
             }
         }
 
+        tv_deep_two?.setOnClickListener {
+            deep = 2
+            selectProvince = null
+            selectCity = null
+            selectDistrict = null
+            selectStreet = null
+            ToastUtils.showShort("当前地址层级是：二\n已清空已选数据")
+        }
+
+        tv_deep_three?.setOnClickListener {
+            deep = 3
+            selectProvince = null
+            selectCity = null
+            selectDistrict = null
+            selectStreet = null
+            ToastUtils.showShort("当前地址层级是：三\n已清空已选数据")
+        }
+
         tv_select_address?.setOnClickListener {
             AddressSelectDialog(requireContext())
                 .setAddressSelectListener(mSelectListener)
                 .setDataLoadPresenter(this)
+                .setAddressSelectLevel(deep)
                 .setDefaultRegion(selectProvince, selectCity, selectDistrict, selectStreet)
                 .show(requireActivity().supportFragmentManager, "SelectAddress")
         }
     }
 
     override fun doExecute() {
-
     }
 
     override fun onAddressDataLoad(id: String?, type: Int, handler: Handler) {

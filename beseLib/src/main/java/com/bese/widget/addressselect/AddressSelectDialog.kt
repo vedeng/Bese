@@ -21,6 +21,7 @@ class AddressSelectDialog(private val mCtx: Context) : DialogFragment() {
     private var city: Region? = null
     private var district: Region? = null
     private var street: Region? = null
+    private var selectLevel: Int = 3
 
     fun setDefaultRegion(province: Region?, city: Region?, district: Region?, street: Region? = null) : AddressSelectDialog {
         this.province = province
@@ -40,13 +41,18 @@ class AddressSelectDialog(private val mCtx: Context) : DialogFragment() {
         return this
     }
 
+    fun setAddressSelectLevel(level: Int?) : AddressSelectDialog {
+        selectLevel = level ?: 3
+        return this
+    }
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         selector = AddressSelector(mCtx, loadPresenter, province, city, district, street).apply {
             setOnDialogCloseListener(object : AddressSelector.OnDialogCloseListener {
                 override fun dialogClose() { dismiss() }
             })
             setOnAddressSelectedListener(selectListener)
-            setAddressDeep(AddressSelector.DEEP_TWO)
+            setAddressDeep(selectLevel)
         }
 
         return Dialog(mCtx, R.style.Dialog_Fullscreen_Bottom).apply {

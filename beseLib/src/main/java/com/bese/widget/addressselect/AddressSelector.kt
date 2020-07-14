@@ -729,8 +729,8 @@ class AddressSelector(private val context: Context, private var loadPresenter: D
     fun setAddressDeep(deepType: Int = 3) {
         ADDRESS_LIST_DEEP_TYPE = when (deepType) {
             2 -> DEEP_TWO
-            4 -> DEEP_THREE
-            else -> DEEP_FOUR
+            4 -> DEEP_FOUR
+            else -> DEEP_THREE
         }
     }
 

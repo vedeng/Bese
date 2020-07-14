@@ -8,9 +8,27 @@
     android:fitsSystemWindows="true">
 
     <TextView
+        android:id="@+id/tv_deep_two"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:background="@drawable/shape_r12"
+        android:text="地址深度2"/>
+
+    <TextView
+        android:id="@+id/tv_deep_three"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:layout_marginVertical="50dp"
+        android:background="@drawable/shape_r12"
+        android:text="地址深度3"/>
+
+    <TextView
         android:id="@+id/tv_select_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@color/color_cce5ff"
         android:padding="@dimen/dp_10"
         android:text="选择地址"/>
 
