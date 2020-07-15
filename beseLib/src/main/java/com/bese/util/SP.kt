@@ -50,10 +50,10 @@ object SP {
     }
 
     /**获取String型值 */
-    fun getString(key: String): String? {
-        return SPUtils.getInstance(SP_NAME).getString(key)
+    fun getString(key: String): String {
+        return SPUtils.getInstance(SP_NAME).getString(key) ?: ""
     }
-    fun getString(key: String, def: String): String? {
+    fun getString(key: String, def: String): String {
         return SPUtils.getInstance(SP_NAME).getString(key, def)
     }
 

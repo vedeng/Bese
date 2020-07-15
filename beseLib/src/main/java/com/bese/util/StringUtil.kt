@@ -232,11 +232,11 @@ object StringUtil {
      * @param price 价格
      * @return  是否不为0
      */
-    fun priceNotZero(price: String): Boolean {
-        var price = price
-        price = getFormatPrice(price)
-        return if (isDouble(price)) {
-            price.toDouble() != 0.0
+    fun priceNotZero(price: String?): Boolean {
+        if (price?.isEmpty() == true) return false
+        val newPrice = getFormatPrice(price)
+        return if (isDouble(newPrice)) {
+            newPrice.toDouble() != 0.0
         } else {
             false
         }
@@ -256,9 +256,9 @@ object StringUtil {
      * 手机号隐藏部分字符工具
      * 输入内容最好是标准手机号格式，如出错，可能返回格式不对，也可能返回 "****"
      */
-    fun phoneHideCenter(phone: String): String {
-        return if (!TextUtils.isEmpty(phone) && phone.length > 4) {
-            phone.substring(0, 3) + "****" + phone.substring(phone.length - 4)
+    fun phoneHideCenter(phone: String?): String {
+        return if (!TextUtils.isEmpty(phone) && phone?.length ?: 0 > 4) {
+            phone?.substring(0, 3) + "****" + phone?.substring(phone.length - 4)
         } else {
             "****"
         }
@@ -267,11 +267,11 @@ object StringUtil {
     /**
      * 手机号以344格式插入空格
      */
-    fun phoneWithSpace(phone: String): String {
-        return if (!TextUtils.isEmpty(phone) && phone.length > 7) {
-            phone.substring(0, 3) + " " + phone.substring(3, 7) + " " + phone.substring(phone.length - 4)
+    fun phoneWithSpace(phone: String?): String {
+        return if (!TextUtils.isEmpty(phone) && phone?.length ?: 0 > 7) {
+            phone?.substring(0, 3) + " " + phone?.substring(3, 7) + " " + phone?.substring(phone.length - 4)
         } else {
-            phone
+            phone ?: ""
         }
     }
 

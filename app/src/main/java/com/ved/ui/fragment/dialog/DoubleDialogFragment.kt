@@ -1,5 +1,6 @@
 package com.ved.ui.fragment.dialog
 
+import android.graphics.Color
 import com.bese.widget.dialog.XDialog
 import com.ved.R
 import com.ved.ui.base.BaseFragment
@@ -50,7 +51,7 @@ class DoubleDialogFragment : BaseFragment() {
             XDialog(baseContext)
                 .setTitle("领取成功！")
                 .setMessage("感谢您的参与，")
-                .setTimer(5200,1000, XDialog.TIMER_TYPE_ENTER)
+                .setTimer(5200,1000, XDialog.TIMER_TYPE_ENTER, Color.parseColor("#0099ff"))
                 .setCancelText("关闭")
                 .setEnterText("去使用 (${XDialog.TIMER_FLAG})")
                 .build()

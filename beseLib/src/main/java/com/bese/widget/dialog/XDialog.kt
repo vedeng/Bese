@@ -415,7 +415,6 @@ class XDialog(private val mCtx: Context?) {
         return this
     }
 
-
     fun build() {
         // 自定义视图
         if (mDialog == null && mCtx != null) {
