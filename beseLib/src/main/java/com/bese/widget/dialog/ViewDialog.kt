@@ -18,7 +18,7 @@ import com.bese.R
  * 弹窗工具
  *      效果：展示自定义View的弹窗
  */
-class ViewDialog(private val mCtx: Context) {
+class ViewDialog(private val mCtx: Context?) {
 
     @ColorInt
     private var backgroundColor: Int = Color.WHITE
@@ -48,8 +48,11 @@ class ViewDialog(private val mCtx: Context) {
     private var contentLayout: LinearLayout? = null
 
     private fun getDp(dpValue: Float): Int {
-        val scale = mCtx.resources.displayMetrics.density
-        return (dpValue * scale + 0.5f).toInt()
+        mCtx?.run {
+            val scale = resources.displayMetrics.density
+            return (dpValue * scale + 0.5f).toInt()
+        }
+        return 0
     }
 
     /**
@@ -159,7 +162,7 @@ class ViewDialog(private val mCtx: Context) {
 
     fun build() {
         // 自定义视图
-        if (mDialog == null) {
+        if (mDialog == null && mCtx != null) {
             mDialog = Dialog(mCtx, R.style.XDialog)
         }
         mDialog?.run {

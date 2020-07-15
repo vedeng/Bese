@@ -26,7 +26,7 @@ import com.blankj.utilcode.util.SizeUtils
  *      适用范围：自定义简单弹窗-标题+消息+强化点击引导
  *      Link：自定义View弹窗  ViewDialog，可使用自定义View
  */
-class EnhanceDialog(private val mCtx: Context) {
+class EnhanceDialog(private val mCtx: Context?) {
 
     @ColorInt private var backgroundColor: Int = Color.WHITE
     private var backgroundDim: Float = 0.5f
@@ -322,7 +322,7 @@ class EnhanceDialog(private val mCtx: Context) {
 
     fun build() {
         // 自定义视图
-        if (mDialog == null) {
+        if (mDialog == null && mCtx != null) {
             mDialog = Dialog(mCtx, R.style.XDialog)
         }
         mDialog?.run {
