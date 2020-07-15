@@ -8,5 +8,5 @@
     android:paddingVertical="8dp"
     android:singleLine="true"
     android:text="Name"
-    android:textColor="@color/selector_666666_0099ff"
+    android:textColor="@drawable/selector_666666_0099ff"
     android:textSize="16sp" />

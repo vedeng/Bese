@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/color_fff"
+    android:background="#ffffff"
     android:orientation="vertical">
 
     <TextView
@@ -12,13 +12,13 @@
         android:layout_height="50dp"
         android:gravity="center"
         android:text="拍摄"
-        android:textColor="@color/color_000"
+        android:textColor="#000000"
         android:textSize="15sp"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/color_eee"/>
+        android:background="#eeeeee"/>
 
     <TextView
         android:id="@+id/picker_gallery"
@@ -27,13 +27,13 @@
         android:gravity="center"
         android:singleLine="true"
         android:text="从手机相册选择"
-        android:textColor="@color/color_000"
+        android:textColor="#000000"
         android:textSize="15sp"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:background="@color/color_eee"/>
+        android:background="#eeeeee"/>
 
     <TextView
         android:id="@+id/picker_cancel"
@@ -42,6 +42,6 @@
         android:gravity="center"
         android:text="取消"
         android:textSize="15sp"
-        android:textColor="@color/color_000"/>
+        android:textColor="#000000"/>
     
 </LinearLayout>

@@ -11,7 +11,7 @@
         android:layout_marginLeft="36dp"
         android:layout_marginRight="36dp"
         android:background="@drawable/rct_sld_r10"
-        android:backgroundTint="@color/color_fff"
+        android:backgroundTint="#ffffff"
         android:orientation="vertical">
 
         <View
@@ -27,7 +27,7 @@
             android:layout_marginEnd="15dp"
             android:gravity="center"
             android:textSize="15sp"
-            android:textColor="@color/color_000"/>
+            android:textColor="#000000"/>
 
         <TextView
             android:id="@+id/dialog_custom_msg"
@@ -37,14 +37,14 @@
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
             android:textSize="14sp"
-            android:textColor="@color/color_000"/>
+            android:textColor="#000000"/>
 
         <View
             android:id="@+id/bottom_line"
             android:layout_width="match_parent"
             android:layout_marginTop="20dp"
             android:layout_height="1px"
-            android:background="@color/color_ccc"/>
+            android:background="#cccccc"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -64,7 +64,7 @@
                 android:id="@+id/dialog_custom_btn_line"
                 android:layout_width="1px"
                 android:layout_height="match_parent"
-                android:background="@color/color_ccc" />
+                android:background="#cccccc" />
 
             <TextView
                 android:id="@+id/dialog_custom_right"

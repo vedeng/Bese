@@ -19,11 +19,11 @@
         android:id="@+id/btn_sub"
         android:layout_width="28dp"
         android:layout_height="wrap_content"
-        android:background="@color/color_eee"
+        android:background="#eeeeee"
         android:gravity="center"
         android:paddingBottom="1dp"
         android:text="-"
-        android:textColor="@color/color_333"
+        android:textColor="#333333"
         android:textSize="21sp" />
 
     <EditText
@@ -42,18 +42,18 @@
         android:minWidth="45dp"
         android:singleLine="true"
         android:text="1"
-        android:textColor="@color/color_000"
+        android:textColor="#000000"
         android:textSize="14sp" />
 
     <TextView
         android:id="@+id/btn_add"
         android:layout_width="28dp"
         android:layout_height="wrap_content"
-        android:background="@color/color_eee"
+        android:background="#eeeeee"
         android:gravity="center"
         android:paddingBottom="1dp"
         android:text="+"
-        android:textColor="@color/color_333"
+        android:textColor="#333333"
         android:textSize="21sp" />
 
 </LinearLayout>

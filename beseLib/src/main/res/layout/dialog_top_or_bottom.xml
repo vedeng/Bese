@@ -9,14 +9,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/rct_sld_r10"
-        android:backgroundTint="@color/color_fff"
+        android:backgroundTint="#ffffff"
         android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/layout_edge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/color_fff"
+            android:background="#ffffff"
             android:orientation="vertical"/>
 
     </LinearLayout>

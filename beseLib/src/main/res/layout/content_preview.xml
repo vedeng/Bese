@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:visibility="gone"
-    android:background="@color/color_333">
+    android:background="#333333">
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/preview"
@@ -28,7 +28,7 @@
         android:backgroundTint="@color/trans_30"
         android:text="1/n"
         android:textSize="12sp"
-        android:textColor="@color/color_fff"/>
+        android:textColor="#FFFFFF"/>
 
     <ImageView
         android:id="@+id/preview_download"

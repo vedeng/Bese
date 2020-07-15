@@ -6,5 +6,5 @@
     android:paddingHorizontal="16dp"
     android:paddingVertical="8dp"
     android:singleLine="true"
-    android:text="Name"
+    android:text=""
     android:textSize="16sp" />
