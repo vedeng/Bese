@@ -79,7 +79,7 @@ class InputView @JvmOverloads constructor(private var mCtx: Context, var attrs: 
     /**
      * 是否可编辑
      */
-    private var editable: Boolean = false
+    private var editable: Boolean = true
     /**
      * 输入文字的类型
      */
@@ -474,15 +474,12 @@ class InputView @JvmOverloads constructor(private var mCtx: Context, var attrs: 
                 inputView?.inputType = EditorInfo.TYPE_TEXT_VARIATION_PASSWORD
                 inputView?.transformationMethod = PasswordTransformationMethod.getInstance()
                 // 不可输入空格
-                setInputFilter(
-                    spaceFilter,
-                    cnFilter,
-                    InputFilter.LengthFilter(DEFAULT_PASSWORD_MAX_LENGTH)
-                )
-                isEyeOpen = false
+                setInputFilter(spaceFilter, cnFilter, InputFilter.LengthFilter(DEFAULT_PASSWORD_MAX_LENGTH))
                 if (longClick) {
                     inputView?.setShouldCopyAndPaste(false)
                 }
+                isEyeOpen = true
+                changeEyeState()
             }
             else -> {
             }
