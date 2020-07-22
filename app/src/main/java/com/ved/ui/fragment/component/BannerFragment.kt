@@ -1,6 +1,6 @@
 package com.ved.ui.fragment.component
 
-import com.bese.util.BannerGlideImageLoader
+import com.bese.util.glide.BannerGlideImageLoader
 import com.ved.R
 import com.ved.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_banner.*

@@ -16,10 +16,8 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
+import androidx.annotation.DrawableRes
 import com.bese.R
 
 import com.blankj.utilcode.util.SizeUtils
@@ -50,7 +48,9 @@ class InputView @JvmOverloads constructor(private var mCtx: Context, var attrs: 
     /**
      * 只针对密码类型的密码可见开关
      */
-    private var eyeTextView: TextView? = null
+    private var eyeIcon: ImageView? = null
+    @DrawableRes private var eyeOpen = R.mipmap.icon_eye_open
+    @DrawableRes private var eyeClose = R.mipmap.icon_eye_close
     /**
      * 输入框底部线
      */
@@ -155,7 +155,7 @@ class InputView @JvmOverloads constructor(private var mCtx: Context, var attrs: 
         inputView = findViewById(R.id.et_input)
         tipTextView = findViewById(R.id.tv_tip)
         delTextView = findViewById(R.id.tv_clear)
-        eyeTextView = findViewById(R.id.tv_eye)
+        eyeIcon = findViewById(R.id.icon_eye)
         inputLine = findViewById(R.id.input_line)
         inputView?.isFocusable = true
 
@@ -228,7 +228,7 @@ class InputView @JvmOverloads constructor(private var mCtx: Context, var attrs: 
         setEyeVisible(editable)
 
         delTextView?.setOnClickListener(this)
-        eyeTextView?.setOnClickListener(this)
+        eyeIcon?.setOnClickListener(this)
 
         inputView?.addTextChangedListener(textWatcher)
 
@@ -356,7 +356,6 @@ class InputView @JvmOverloads constructor(private var mCtx: Context, var attrs: 
     fun setAllTextSize(spValue: Float, isIcon: Boolean) {
         inputView?.textSize = spValue
         delTextView?.textSize = spValue * 1.16f
-        eyeTextView?.textSize = spValue * 1.16f
         if (isIcon) {
             tipTextView?.textSize = spValue * 1.16f
         } else {
@@ -502,15 +501,23 @@ class InputView @JvmOverloads constructor(private var mCtx: Context, var attrs: 
      */
     fun changeEyeState() {
         if (isEyeOpen) {
-            eyeTextView?.text = "😣"
+            eyeIcon?.setImageResource(eyeClose)
             inputView?.transformationMethod = PasswordTransformationMethod.getInstance()
             inputView?.setSelection(inputView?.length() ?: 0)
         } else {
-            eyeTextView?.text = "👁"
+            eyeIcon?.setImageResource(eyeOpen)
             inputView?.transformationMethod = HideReturnsTransformationMethod.getInstance()
             inputView?.setSelection(inputView?.length() ?: 0)
         }
         isEyeOpen = !isEyeOpen
+    }
+
+    /**
+     * 设置密码输入的眼睛Drawable
+     */
+    fun setInputEyeResource(openEye: Int?, closeEye: Int?) {
+        eyeOpen = openEye ?: R.mipmap.icon_eye_open
+        eyeClose = closeEye ?: R.mipmap.icon_eye_close
     }
 
     /**
@@ -531,7 +538,7 @@ class InputView @JvmOverloads constructor(private var mCtx: Context, var attrs: 
      * @param editable 是否可见
      */
     private fun setEyeVisible(editable: Boolean) {
-        eyeTextView?.visibility =
+        eyeIcon?.visibility =
             if (inputType == PASSWORD && editable) View.VISIBLE else View.GONE
     }
 
@@ -539,7 +546,7 @@ class InputView @JvmOverloads constructor(private var mCtx: Context, var attrs: 
         val i = v.id
         if (i == R.id.tv_clear) {
             clearInput()
-        } else if (i == R.id.tv_eye) {
+        } else if (i == R.id.icon_eye) {
             changeEyeState()
         }
     }

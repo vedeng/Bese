@@ -1,4 +1,4 @@
-package com.bese.util
+package com.bese.util.glide
 
 import android.content.Context
 import android.util.Log

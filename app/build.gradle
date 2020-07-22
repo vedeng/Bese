@@ -89,6 +89,10 @@ dependencies {
 //    BRVAH
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.47'
 
+    // 图片库
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    kapt 'com.github.bumptech.glide:compiler:4.11.0'
+
     // 网络框架
     implementation 'com.github.vedeng:NetFrame:1.2.0'
 

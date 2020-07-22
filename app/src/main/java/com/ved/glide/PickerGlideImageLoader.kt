@@ -1,7 +1,6 @@
 package com.ved.glide
 
 import android.app.Activity
-import android.content.Context
 import android.util.Log
 import android.widget.ImageView
 import com.bumptech.glide.Glide

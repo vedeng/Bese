@@ -3,7 +3,6 @@ package com.ved.ui
 import android.content.Intent
 import android.util.Log
 import android.view.View
-import android.widget.AdapterView
 import com.bese.widget.dialog.PicPickerDialog
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -11,7 +10,6 @@ import com.pic.picker.ImagePicker
 import com.pic.picker.bean.ImageItem
 import com.pic.picker.ui.ImageGridActivity
 import com.pic.picker.ui.ImagePreviewDelActivity
-import com.pic.picker.view.CropImageView
 import com.ved.R
 import com.ved.glide.PickerGlideImageLoader
 import com.ved.ui.base.BaseActivity
