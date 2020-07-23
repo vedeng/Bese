@@ -3,6 +3,7 @@ package com.bese.widget.inputview
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.text.Editable
 import android.text.InputFilter
 import android.text.TextUtils
@@ -280,13 +281,18 @@ class InputView @JvmOverloads constructor(private var mCtx: Context, var attrs: 
      * 设置提示文案
      *
      * @param txt 文案
+     * @param drawable 如果需要使用图片，采用TextView的旁侧Drawable来设定
      */
-    fun setTipText(txt: String?) {
+    fun setTipText(txt: String?, drawable: Drawable? = null) {
         if (TextUtils.isEmpty(txt)) {
             tipTextView?.text = ""
             tipTextView?.visibility = View.GONE
         } else {
             tipTextView?.text = txt
+        }
+        if (drawable != null) {
+            drawable.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
+            tipTextView?.setCompoundDrawables(null, null, drawable, null)
         }
     }
 

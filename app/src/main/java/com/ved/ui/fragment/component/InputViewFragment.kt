@@ -2,6 +2,7 @@ package com.ved.ui.fragment.component
 
 import com.ved.R
 import com.ved.ui.base.BaseFragment
+import kotlinx.android.synthetic.main.fragment_input.*
 
 class InputViewFragment : BaseFragment() {
 
@@ -21,7 +22,8 @@ class InputViewFragment : BaseFragment() {
     }
 
     override fun doExecute() {
-
+//        input_left_tip?.setTipText("左侧")
+        input_left_tip?.setTipText("左", context?.getDrawable(R.mipmap.chat))
     }
 
 }
