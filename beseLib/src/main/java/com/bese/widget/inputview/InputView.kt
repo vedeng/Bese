@@ -283,14 +283,16 @@ class InputView @JvmOverloads constructor(private var mCtx: Context, var attrs: 
      * @param txt 文案
      * @param drawable 如果需要使用图片，采用TextView的旁侧Drawable来设定
      */
-    fun setTipText(txt: String?, drawable: Drawable? = null) {
+    fun setTipText(txt: String? = "", drawable: Drawable? = null) {
         if (TextUtils.isEmpty(txt)) {
             tipTextView?.text = ""
             tipTextView?.visibility = View.GONE
         } else {
             tipTextView?.text = txt
+            tipTextView?.visibility = View.VISIBLE
         }
         if (drawable != null) {
+            tipTextView?.visibility = View.VISIBLE
             drawable.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
             tipTextView?.setCompoundDrawables(null, null, drawable, null)
         }
