@@ -27,9 +27,6 @@ class AddressSelector(private val context: Context, private var loadPresenter: D
 
     /** 是否有地址数据需要回显 */
     private var echo = false
-    /** 回显等级，>0 时，代表省市区街有几级数据回显 */
-    private var echoLevel = 0
-    private var echoArr: BooleanArray = BooleanArray(4)
 
     /**
      * 获得view
@@ -60,9 +57,10 @@ class AddressSelector(private val context: Context, private var loadPresenter: D
     var selectCity: Region? = null
     var selectDistrict: Region? = null
     var selectStreet: Region? = null
-    private var selectedColor = Color.parseColor("#0099FF")
-    private var unSelectedColor = Color.parseColor("#000000")
-    private var indicatorColor = Color.parseColor("#0099FF")
+    var selectedColor = Color.parseColor("#0099FF")
+    var unSelectedColor = Color.parseColor("#000000")
+    var indicatorColor = Color.parseColor("#0099FF")
+    var addressSelectIcon = R.mipmap.icon_item_checked
 
     private val handler = Handler(Handler.Callback { msg ->
             when (msg.what) {
@@ -71,7 +69,7 @@ class AddressSelector(private val context: Context, private var loadPresenter: D
                     provinceAdapter?.notifyDataSetChanged()
                     if (provinceList?.isNotEmpty() == true) {
                         if (echo) {
-                            reloadAddress(1)
+                            reloadAddress(ADDRESS_LIST_DEEP_TYPE)
                         } else {    // 更新索引
                             tabIndex = INDEX_TAB_PROVINCE
                             listView?.adapter = provinceAdapter
@@ -85,7 +83,7 @@ class AddressSelector(private val context: Context, private var loadPresenter: D
                         listView?.adapter = cityAdapter
                         tabIndex = INDEX_TAB_CITY
                         if (echo) {
-                            reloadAddress(2)
+                            reloadAddress(ADDRESS_LIST_DEEP_TYPE)
                         } else {
                             if (ADDRESS_LIST_DEEP_TYPE >= DEEP_THREE) {
                                 tabIndex = INDEX_TAB_CITY
@@ -104,7 +102,7 @@ class AddressSelector(private val context: Context, private var loadPresenter: D
                         listView?.adapter = districtAdapter
                         tabIndex = INDEX_TAB_DISTRICT
                         if (echo) {
-                            reloadAddress(3)
+                            reloadAddress(ADDRESS_LIST_DEEP_TYPE)
                         } else {
                             if (ADDRESS_LIST_DEEP_TYPE >= DEEP_FOUR) {
                                 tabIndex = INDEX_TAB_DISTRICT
@@ -122,7 +120,7 @@ class AddressSelector(private val context: Context, private var loadPresenter: D
                         listView?.adapter = streetAdapter
                         tabIndex = INDEX_TAB_STREET
                         if (echo) {
-                            reloadAddress(4)
+                            reloadAddress(ADDRESS_LIST_DEEP_TYPE)
                         }
                     } else {
                         selectOver(false)
@@ -144,40 +142,35 @@ class AddressSelector(private val context: Context, private var loadPresenter: D
      * @param level 第几个Tab
      */
     private fun reloadAddress(level: Int) {
-        if (level == 1) {
-            echoArr[0] = true
-        } else if (level == 2) {
-            echoArr[1] = true
-        } else if (level == 3) {
-            echoArr[2] = true
-        } else if (level == 4) {
-            echoArr[3] = true
-        }
-        when (echoLevel) {
+        when (level) {
             1 -> {
-                if (echoArr[0]) {
+                if (provinceList?.isNotEmpty() == true) {
                     echo = false
+                    listView?.adapter = provinceAdapter
                     tabIndex = INDEX_TAB_PROVINCE
                     updateTabUI(false)
                 }
             }
             2 -> {
-                if (echoArr[0] && echoArr[1]) {
+                if (provinceList?.isNotEmpty() == true && cityList?.isNotEmpty() == true) {
                     echo = false
+                    listView?.adapter = cityAdapter
                     tabIndex = INDEX_TAB_CITY
                     updateTabUI(false)
                 }
             }
             3 -> {
-                if (echoArr[0] && echoArr[1] && echoArr[2]) {
+                if (provinceList?.isNotEmpty() == true && cityList?.isNotEmpty() == true && districtList?.isNotEmpty() == true) {
                     echo = false
+                    listView?.adapter = districtAdapter
                     tabIndex = INDEX_TAB_DISTRICT
                     updateTabUI(false)
                 }
             }
             4 -> {
-                if (echoArr[0] && echoArr[1] && echoArr[2] && echoArr[3]) {
+                if (provinceList?.isNotEmpty() == true && cityList?.isNotEmpty() == true && districtList?.isNotEmpty() == true && streetList?.isNotEmpty() == true) {
                     echo = false
+                    listView?.adapter = streetAdapter
                     tabIndex = INDEX_TAB_STREET
                     updateTabUI(false)
                 }
@@ -562,7 +555,7 @@ class AddressSelector(private val context: Context, private var loadPresenter: D
                 val checked = r?.regionName == selectProvince?.regionName
                 holder.areaName?.isEnabled = !checked
                 holder.selectIcon?.visibility = if (checked) View.VISIBLE else View.GONE
-                if (checked) holder.selectIcon?.setImageResource(R.mipmap.icon_item_checked)
+                if (checked) holder.selectIcon?.setImageResource(addressSelectIcon)
             }
             return convertView
         }
@@ -607,7 +600,7 @@ class AddressSelector(private val context: Context, private var loadPresenter: D
                 val checked = r?.regionName == selectCity?.regionName
                 holder.areaName?.isEnabled = !checked
                 holder.selectIcon?.visibility = if (checked) View.VISIBLE else View.GONE
-                if (checked) holder.selectIcon?.setImageResource(R.mipmap.icon_item_checked)
+                if (checked) holder.selectIcon?.setImageResource(addressSelectIcon)
             }
             return convertView
         }
@@ -652,7 +645,7 @@ class AddressSelector(private val context: Context, private var loadPresenter: D
                 val checked = r?.regionName == selectDistrict?.regionName
                 holder.areaName?.isEnabled = !checked
                 holder.selectIcon?.visibility = if (checked) View.VISIBLE else View.GONE
-                if (checked) holder.selectIcon?.setImageResource(R.mipmap.icon_item_checked)
+                if (checked) holder.selectIcon?.setImageResource(addressSelectIcon)
             }
             return convertView
         }
@@ -697,7 +690,7 @@ class AddressSelector(private val context: Context, private var loadPresenter: D
                 val checked = r?.regionName == selectStreet?.regionName
                 holder.areaName?.isEnabled = !checked
                 holder.selectIcon?.visibility = if (checked) View.VISIBLE else View.GONE
-                if (checked) holder.selectIcon?.setImageResource(R.mipmap.icon_item_checked)
+                if (checked) holder.selectIcon?.setImageResource(addressSelectIcon)
             }
             return convertView
         }
@@ -771,21 +764,17 @@ class AddressSelector(private val context: Context, private var loadPresenter: D
         initAdapters()
         province?.let { p ->
             echo = true
-            echoLevel = 1
             selectProvince = p
             textViewProvince?.text = p.regionName
             city?.let {  c ->
-                echoLevel = 2
                 selectCity = c
                 textViewCity?.text = c.regionName
                 if (ADDRESS_LIST_DEEP_TYPE >= DEEP_THREE) {
                     district?.let { d ->
-                        echoLevel = 3
                         selectDistrict = d
                         textViewDistrict?.text = d.regionName
                         if (ADDRESS_LIST_DEEP_TYPE >= DEEP_FOUR) {
                             street?.let { s ->
-                                echoLevel = 4
                                 selectStreet = s
                                 textViewStreet?.text = s.regionName
                             }

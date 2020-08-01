@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav"
+    android:id="@+id/nav_main"
     app:startDestination="@id/mainFragment">
 
+    <!-- 首页跳转导航 -->
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.ved.ui.fragment.MainFragment"
@@ -59,12 +60,13 @@
         <action
             android:id="@+id/action_mainFragment_to_selectItemFragment"
             app:destination="@id/selectItemFragment"/>
-    </fragment>
 
-    <fragment
-        android:id="@+id/toolFragment"
-        android:name="com.ved.ui.fragment.main.ToolFragment"
-        android:label="ToolFragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_stickyFragment"
+            app:destination="@id/stickyFragment"/>
+        <action
+            android:id="@+id/action_mainFragment_to_staggerFragment"
+            app:destination="@id/staggerFragment"/>
     </fragment>
 
     <fragment
@@ -185,5 +187,15 @@
         android:id="@+id/selectItemFragment"
         android:name="com.ved.ui.fragment.select.SelectItemFragment"
         android:label="SelectItemFragment" />
+
+    <fragment
+        android:id="@+id/stickyFragment"
+        android:name="com.ved.ui.fragment.bbs.StickyFragment"
+        android:label="StickyFragment" />
+
+    <fragment
+        android:id="@+id/staggerFragment"
+        android:name="com.ved.ui.fragment.bbs.StaggerFragment"
+        android:label="StaggerFragment" />
 
 </navigation>
