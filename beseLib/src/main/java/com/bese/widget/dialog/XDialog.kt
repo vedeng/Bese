@@ -40,13 +40,13 @@ class XDialog(private val mCtx: Context?) {
     private var backgroundDim: Float = 0.5f
 
     private var title: String? = null
-    private var titleTextSize: Float = 15f
+    private var titleTextSize: Float = getSp(15f).toFloat()
     @ColorInt private var titleTextColor: Int = Color.BLACK
     private var titleGravity: Int = Gravity.CENTER
-    private var titleIsBold: Boolean = false
+    private var titleIsBold: Boolean = true
 
     private var message: String? = null
-    private var messageTextSize: Float = 14f
+    private var messageTextSize: Float = getSp(14f).toFloat()
     @ColorInt private var messageTextColor: Int = Color.BLACK
     private var messageGravity: Int = Gravity.CENTER
 
@@ -97,7 +97,15 @@ class XDialog(private val mCtx: Context?) {
             val scale = resources.displayMetrics.density
             return (dpValue * scale + 0.5f).toInt()
         }
-        return 0
+        return (dpValue * 3).toInt()
+    }
+
+    private fun getSp(spValue: Float): Int {
+        mCtx?.run {
+            val scale = resources.displayMetrics.scaledDensity
+            return (spValue * scale + 0.5f).toInt()
+        }
+        return (spValue * 3).toInt()
     }
 
     /**

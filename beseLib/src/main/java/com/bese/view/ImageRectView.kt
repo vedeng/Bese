@@ -38,8 +38,6 @@ class ImageRectView @JvmOverloads constructor(context: Context, attrs: Attribute
         // anti-alias property
         mPaint.isAntiAlias = true
 
-        scaleType = ScaleType.CENTER_CROP
-
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.ImageRectView)
         autoWrapRatio = typedArray.getBoolean(R.styleable.ImageRectView_autoWrapRatio, false)
         val ratio = typedArray.getFloat(R.styleable.ImageRectView_squareRatio, 1f)

@@ -12,6 +12,7 @@ import android.text.method.DigitsKeyListener
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -140,7 +141,7 @@ class InputView @JvmOverloads constructor(private var mCtx: Context, var attrs: 
 
     init {
         orientation = HORIZONTAL
-        DEFAULT_TEXT_SIZE = getDp(16f).toFloat()
+        DEFAULT_TEXT_SIZE = getSp(16f).toFloat()
         init(mCtx, attrs)
     }
 
@@ -148,6 +149,12 @@ class InputView @JvmOverloads constructor(private var mCtx: Context, var attrs: 
         val scale = mCtx.resources.displayMetrics.density
         return (dpValue * scale + 0.5f).toInt()
     }
+
+    private fun getSp(spValue: Float): Int {
+        val scale = mCtx.resources.displayMetrics.scaledDensity
+        return (spValue * scale + 0.5f).toInt()
+    }
+
 
     @SuppressLint("ClickableViewAccessibility")
     private fun init(context: Context, attrs: AttributeSet?) {
@@ -213,7 +220,7 @@ class InputView @JvmOverloads constructor(private var mCtx: Context, var attrs: 
 
         setLineCount(inputMinLine, inputMaxLine)
 
-        setAllTextSize(SizeUtils.px2sp(txtSize).toFloat(), tipIsIcon)
+        setAllTextSize(txtSize, tipIsIcon)
 
         setInputBottomLine(isShowInputLine, bottomLineColor, lineMargin)
 
@@ -362,12 +369,12 @@ class InputView @JvmOverloads constructor(private var mCtx: Context, var attrs: 
      * @param spValue 字号，sp值
      */
     fun setAllTextSize(spValue: Float, isIcon: Boolean) {
-        inputView?.textSize = spValue
-        delTextView?.textSize = spValue * 1.16f
+        inputView?.setTextSize(TypedValue.COMPLEX_UNIT_PX, spValue)
+        delTextView?.setTextSize(TypedValue.COMPLEX_UNIT_PX, spValue)
         if (isIcon) {
-            tipTextView?.textSize = spValue * 1.16f
+            tipTextView?.setTextSize(TypedValue.COMPLEX_UNIT_PX, spValue)
         } else {
-            tipTextView?.textSize = spValue
+            tipTextView?.setTextSize(TypedValue.COMPLEX_UNIT_PX, spValue)
         }
     }
 

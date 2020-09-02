@@ -4,7 +4,7 @@ import android.graphics.Color
 import android.os.Handler
 import androidx.recyclerview.widget.GridLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.BaseViewHolder
+import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.ved.R
 import com.ved.entity.bean.IconFont
 import com.ved.ui.base.BaseFragment
@@ -20,7 +20,7 @@ class FontIconFragment : BaseFragment() {
     private var mHandler = Handler(Handler.Callback {
         when (it.what) {
             101 -> {
-                listAdapter.replaceData(fontIconList)
+                listAdapter.setList(fontIconList)
                 Handler().postDelayed({ hideLoading() }, 1500)
             }
         }
@@ -66,15 +66,15 @@ class FontIconFragment : BaseFragment() {
     private var random = Random(200)
 
     private var listAdapter = object : BaseQuickAdapter<IconFont?, BaseViewHolder>(R.layout.item_icon_font) {
-        override fun convert(helper: BaseViewHolder, item: IconFont?) {
+        override fun convert(holder: BaseViewHolder, item: IconFont?) {
             item?.run {
-                helper.itemView.icon_name?.text = name
-                helper.itemView.icon_code?.text = "\\u$code"
-                helper.itemView.icon?.text = code.toInt(16).toChar().toString()
+                holder.itemView.icon_name?.text = name
+                holder.itemView.icon_code?.text = "\\u$code"
+                holder.itemView.icon?.text = code.toInt(16).toChar().toString()
                 if (randomColor) {
-                    helper.itemView.icon?.setTextColor(Color.argb(255, random.nextInt(), random.nextInt(), random.nextInt()))
+                    holder.itemView.icon?.setTextColor(Color.argb(255, random.nextInt(), random.nextInt(), random.nextInt()))
                 } else {
-                    helper.itemView.icon?.setTextColor(currentTextColor)
+                    holder.itemView.icon?.setTextColor(currentTextColor)
                 }
             }
         }

@@ -2,11 +2,12 @@ package com.ved.ui.fragment.bbs
 
 import android.graphics.Color
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.BaseViewHolder
+import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.ved.R
 import com.ved.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_list_stagger.*
 import kotlinx.android.synthetic.main.fragment_timer_down.*
+import kotlinx.android.synthetic.main.item_sticky.view.*
 
 class StaggerFragment : BaseFragment() {
 
@@ -38,8 +39,8 @@ class StaggerFragment : BaseFragment() {
     }
 
     private val stickyAdapter = object : BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_sticky) {
-        override fun convert(helper: BaseViewHolder, item: String?) {
-
+        override fun convert(holder: BaseViewHolder, item: String) {
+            holder.itemView.tv_list_sticky?.text = item
         }
     }
 

@@ -12,7 +12,7 @@ import com.ved.R
 /**
  * <底部导航按钮管理布局>
  */
-class BottomNavView @JvmOverloads constructor(context: Context?, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
+class BottomNavView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
     : LinearLayoutCompat(context, attrs, defStyleAttr) {
 
     var mOnNavClickListener: OnNavClickListener? = null

@@ -4,7 +4,7 @@ import android.content.Intent
 import android.util.Log
 import com.blankj.utilcode.util.ToastUtils
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
-import com.chad.library.adapter.base.BaseViewHolder
+import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.ved.R
 import com.ved.entity.bean.MainListEntity
 import com.ved.ui.DetailCompressActivity
@@ -32,7 +32,7 @@ class HomeFragment : BaseFragment() {
         getMainListFlow()
 
 
-        mainList?.run { mainAdapter.replaceData(this) }
+        mainList?.run { mainAdapter.setList(this) }
 
     }
 
@@ -41,18 +41,18 @@ class HomeFragment : BaseFragment() {
             addItemType(MainListEntity.ITEM_TITLE, R.layout.item_vd_title)
             addItemType(MainListEntity.ITEM_CONTENT, R.layout.item_vd_text)
         }
-        override fun convert(helper: BaseViewHolder, item: MainListEntity?) {
-            item?.run {
+        override fun convert(holder: BaseViewHolder, item: MainListEntity) {
+            item.run {
                 when (itemType) {
                     MainListEntity.ITEM_TITLE -> {
-                        helper.itemView.tv_title?.text = content
+                        holder.itemView.tv_title?.text = content
                     }
                     MainListEntity.ITEM_CONTENT -> {
-                        helper.itemView.tv_text?.text = content
-                        helper.itemView.item_text?.tag = "home_rec_${helper.adapterPosition + 1}_$content"
-                        helper.itemView.item_text?.setOnClickListener {
+                        holder.itemView.tv_text?.text = content
+                        holder.itemView.item_text?.tag = "home_rec_${holder.adapterPosition + 1}_$content"
+                        holder.itemView.item_text?.setOnClickListener {
                             jumpListener.doJump(content)
-                            Log.e("Home列表ID====", "${helper.itemView.id}    +    ${helper.itemView.item_text.id}")
+                            Log.e("Home列表ID====", "${holder.itemView.id}    +    ${holder.itemView.item_text.id}")
                         }
                     }
                     else -> { }

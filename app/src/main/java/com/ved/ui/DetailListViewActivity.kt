@@ -1,7 +1,7 @@
 package com.ved.ui
 
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.BaseViewHolder
+import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.ved.R
 import com.ved.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_listview.*
@@ -49,14 +49,14 @@ class DetailListViewActivity : BaseActivity() {
                 list.add("name$i ${if (ind % 2 == 1) "ct$i" else "\n ct$i"}")
                 ind++
             }
-            listAdapter.replaceData(list)
+            listAdapter.setList(list)
         }
     }
 
     private var listAdapter = object : BaseQuickAdapter<String?, BaseViewHolder>(R.layout.item_list_flow) {
-        override fun convert(helper: BaseViewHolder, item: String?) {
+        override fun convert(holder: BaseViewHolder, item: String?) {
             item?.run {
-                helper.itemView.tv_goods_name?.text = this
+                holder.itemView.tv_goods_name?.text = this
             }
         }
 

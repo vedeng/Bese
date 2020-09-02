@@ -5,7 +5,7 @@ import android.util.Log
 import android.view.View
 import com.bese.widget.dialog.PicPickerDialog
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.BaseViewHolder
+import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.pic.picker.ImagePicker
 import com.pic.picker.bean.ImageItem
 import com.pic.picker.ui.ImageGridActivity
@@ -72,40 +72,40 @@ class DetailPicPickerActivity : BaseActivity() {
     }
 
     var picAdapter = object : BaseQuickAdapter<ImageItem?, BaseViewHolder>(R.layout.item_grid_picker) {
-        override fun convert(helper: BaseViewHolder, item: ImageItem?) {
+        override fun convert(holder: BaseViewHolder, item: ImageItem?) {
             item?.run {
                 if (item.name == ADD_FLAG) {
                     // 展示ADD图
-                    helper.itemView.item_img?.setImageResource(R.drawable.svg_add)
-                    helper.itemView.item_img?.setOnClickListener { openSelect() }
-                    helper.itemView.item_mask?.visibility = View.GONE
-                    helper.itemView.item_pic_delete?.visibility = View.GONE
-                    helper.itemView.item_picker_process?.visibility = View.GONE
+                    holder.itemView.item_img?.setImageResource(R.drawable.svg_add)
+                    holder.itemView.item_img?.setOnClickListener { openSelect() }
+                    holder.itemView.item_mask?.visibility = View.GONE
+                    holder.itemView.item_pic_delete?.visibility = View.GONE
+                    holder.itemView.item_picker_process?.visibility = View.GONE
                 } else {
                     // 展示库图，可预览
                     if (item.path.isNotEmpty()) {
-                        helper.itemView.item_pic_delete?.visibility = View.VISIBLE
-                        helper.itemView.item_pic_delete?.setOnClickListener {
+                        holder.itemView.item_pic_delete?.visibility = View.VISIBLE
+                        holder.itemView.item_pic_delete?.setOnClickListener {
                             removeFromList(item)
                         }
                         if (item.flag in 1..99) {
-                            helper.itemView.item_picker_process?.visibility = View.VISIBLE
-                            helper.itemView.item_mask?.visibility = View.VISIBLE
-                            helper.itemView.item_picker_process?.progress = item.flag
+                            holder.itemView.item_picker_process?.visibility = View.VISIBLE
+                            holder.itemView.item_mask?.visibility = View.VISIBLE
+                            holder.itemView.item_picker_process?.progress = item.flag
                         } else {
-                            helper.itemView.item_picker_process?.visibility = View.GONE
-                            helper.itemView.item_mask?.visibility = View.GONE
+                            holder.itemView.item_picker_process?.visibility = View.GONE
+                            holder.itemView.item_mask?.visibility = View.GONE
                         }
-                        helper.itemView.item_img?.run {
-                            setOnClickListener { openPreview(helper.adapterPosition) }
+                        holder.itemView.item_img?.run {
+                            setOnClickListener { openPreview(holder.adapterPosition) }
                             PickerGlideImageLoader().displayImage( item.path, this)
                         }
                     } else {
                         // 展示错误图
-                        helper.itemView.item_img?.setImageResource(R.drawable.svg_placeholder)
-                        helper.itemView.item_img?.setOnClickListener { openPreview(helper.adapterPosition) }
-                        helper.itemView.item_pic_delete?.visibility = View.GONE
-                        helper.itemView.item_picker_process?.visibility = View.GONE
+                        holder.itemView.item_img?.setImageResource(R.drawable.svg_placeholder)
+                        holder.itemView.item_img?.setOnClickListener { openPreview(holder.adapterPosition) }
+                        holder.itemView.item_pic_delete?.visibility = View.GONE
+                        holder.itemView.item_picker_process?.visibility = View.GONE
                     }
                 }
             }
@@ -158,7 +158,7 @@ class DetailPicPickerActivity : BaseActivity() {
 
     private fun replaceRecData(list: ArrayList<ImageItem>?) {
         list?.run {
-            picAdapter.replaceData(list)
+            picAdapter.setList(list)
         }
     }
 

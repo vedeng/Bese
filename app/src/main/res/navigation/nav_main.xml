@@ -67,6 +67,9 @@
         <action
             android:id="@+id/action_mainFragment_to_staggerFragment"
             app:destination="@id/staggerFragment"/>
+        <action
+            android:id="@+id/action_mainFragment_to_coordinatorFragment"
+            app:destination="@id/coordinatorFragment"/>
     </fragment>
 
     <fragment
@@ -197,5 +200,10 @@
         android:id="@+id/staggerFragment"
         android:name="com.ved.ui.fragment.bbs.StaggerFragment"
         android:label="StaggerFragment" />
+
+    <fragment
+        android:id="@+id/coordinatorFragment"
+        android:name="com.ved.ui.fragment.bbs.CoordinatorFragment"
+        android:label="CoordinatorFragment" />
 
 </navigation>
