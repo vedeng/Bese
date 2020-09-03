@@ -141,7 +141,7 @@ class InputView @JvmOverloads constructor(private var mCtx: Context, var attrs: 
 
     init {
         orientation = HORIZONTAL
-        DEFAULT_TEXT_SIZE = getSp(16f).toFloat()
+        DEFAULT_TEXT_SIZE = getDp(16f).toFloat()
         init(mCtx, attrs)
     }
 
@@ -149,12 +149,6 @@ class InputView @JvmOverloads constructor(private var mCtx: Context, var attrs: 
         val scale = mCtx.resources.displayMetrics.density
         return (dpValue * scale + 0.5f).toInt()
     }
-
-    private fun getSp(spValue: Float): Int {
-        val scale = mCtx.resources.displayMetrics.scaledDensity
-        return (spValue * scale + 0.5f).toInt()
-    }
-
 
     @SuppressLint("ClickableViewAccessibility")
     private fun init(context: Context, attrs: AttributeSet?) {

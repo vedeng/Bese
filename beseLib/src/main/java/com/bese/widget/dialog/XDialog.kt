@@ -102,7 +102,8 @@ class XDialog(private val mCtx: Context?) {
 
     private fun getSp(spValue: Float): Int {
         mCtx?.run {
-            val scale = resources.displayMetrics.scaledDensity
+            // SP取用DP值，防止系统字体变大
+            val scale = resources.displayMetrics.density
             return (spValue * scale + 0.5f).toInt()
         }
         return (spValue * 3).toInt()
