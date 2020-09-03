@@ -12,6 +12,7 @@ import android.text.SpannableStringBuilder
 import android.text.TextUtils
 import android.text.style.ForegroundColorSpan
 import android.util.Log
+import android.util.TypedValue
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -465,7 +466,7 @@ class XDialog(private val mCtx: Context?) {
             if (title?.isNotEmpty() == true) {
                 titleTv?.run {
                     visibility = View.VISIBLE
-                    textSize = titleTextSize
+                    setTextSize(TypedValue.COMPLEX_UNIT_PX, titleTextSize)
                     setTextColor(titleTextColor)
                     gravity = titleGravity
                     paint?.isFakeBoldText = titleIsBold
@@ -485,7 +486,7 @@ class XDialog(private val mCtx: Context?) {
             if (message?.isNotEmpty() == true) {
                 msgTv?.run {
                     visibility = View.VISIBLE
-                    textSize = messageTextSize
+                    setTextSize(TypedValue.COMPLEX_UNIT_PX, messageTextSize)
                     setTextColor(messageTextColor)
                     gravity = messageGravity
                     if (timerType == TIMER_TYPE_MESSAGE) {

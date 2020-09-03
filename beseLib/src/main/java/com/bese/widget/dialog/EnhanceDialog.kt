@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.util.Log
+import android.util.TypedValue
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -32,13 +33,13 @@ class EnhanceDialog(private val mCtx: Context?) {
     private var backgroundDim: Float = 0.5f
 
     private var title: String? = null
-    private var titleTextSize: Float = 15f
+    private var titleTextSize: Float = getDp(15f).toFloat()
     @ColorInt private var titleTextColor: Int = Color.BLACK
     private var titleGravity: Int = Gravity.CENTER
     private var titleIsBold: Boolean = false
 
     private var message: String? = null
-    private var messageTextSize: Float = 14f
+    private var messageTextSize: Float = getDp(14f).toFloat()
     @ColorInt private var messageTextColor: Int = Color.BLACK
     private var messageGravity: Int = Gravity.CENTER
 
@@ -359,7 +360,7 @@ class EnhanceDialog(private val mCtx: Context?) {
                 titleTv?.run {
                     visibility = View.VISIBLE
                     text = title ?: ""
-                    textSize = titleTextSize
+                    setTextSize(TypedValue.COMPLEX_UNIT_PX, titleTextSize)
                     setTextColor(titleTextColor)
                     gravity = titleGravity
                     paint?.isFakeBoldText = titleIsBold
@@ -373,7 +374,7 @@ class EnhanceDialog(private val mCtx: Context?) {
                 msgTv?.run {
                     visibility = View.VISIBLE
                     text = message ?: ""
-                    textSize = messageTextSize
+                    setTextSize(TypedValue.COMPLEX_UNIT_PX, messageTextSize)
                     setTextColor(messageTextColor)
                     gravity = messageGravity
                 }

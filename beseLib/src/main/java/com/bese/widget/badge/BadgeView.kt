@@ -23,10 +23,10 @@ import kotlin.math.max
 class BadgeView constructor(context: Context) : View(context) {
 
     companion object {
-        const val DEF_TET_SP = 12f
-        const val DEF_TXT_PADDING = 4f
-        const val DEF_OFFSET_X = 0f
-        const val DEF_OFFSET_Y = 0f
+        var DEF_TET_SP: Float = 12f
+        var DEF_TXT_PADDING_DP: Float = 4f
+        const val DEF_OFFSET_X: Float = 0f
+        const val DEF_OFFSET_Y: Float = 0f
     }
 
     @ColorInt private var mBadgeBgColor = Color.RED
@@ -35,17 +35,17 @@ class BadgeView constructor(context: Context) : View(context) {
     private var mDrawableBg: Drawable? = null
     private var mBitmapClip: Bitmap? = null
     private var mDrawableBgClip = false
-    private var mBgBorderWidth = 0f
-    private var mBadgeTextSize = 0f
-    private var mBadgePadding = 0f
+    private var mBgBorderWidth: Int = 0
+    private var mBadgeTextSize: Float = 0f
+    private var mBadgePadding: Int = 0
     private var mBadgeNumber = 0
     /** 精确展示文本，不精确展示数字时，可以展示为99+ */
     private var mExact = false
     private var mShowShadow = false
     private var mBadgeText: String? = null
     private var mBadgeGravity = 0
-    private var mGravityOffsetX = 0f
-    private var mGravityOffsetY = 0f
+    private var mGravityOffsetX: Int = 0
+    private var mGravityOffsetY: Int = 0
     private var mTargetView: View? = null
     private var mWidth = 0
     private var mHeight = 0
@@ -70,11 +70,11 @@ class BadgeView constructor(context: Context) : View(context) {
         mBadgeBgBorderPaint.isAntiAlias = true
         mBadgeBgBorderPaint.style = Paint.Style.STROKE
         mBadgeTextSize = SizeUtils.dp2px(DEF_TET_SP).toFloat()
-        mBadgePadding = SizeUtils.dp2px(DEF_TXT_PADDING).toFloat()
+        mBadgePadding = SizeUtils.dp2px(DEF_TXT_PADDING_DP)
         mBadgeNumber = 0
         mBadgeGravity = Gravity.END or Gravity.TOP
-        mGravityOffsetX = SizeUtils.dp2px(DEF_OFFSET_X).toFloat()
-        mGravityOffsetY = SizeUtils.dp2px(DEF_OFFSET_Y).toFloat()
+        mGravityOffsetX = SizeUtils.dp2px(DEF_OFFSET_X)
+        mGravityOffsetY = SizeUtils.dp2px(DEF_OFFSET_Y)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             translationZ = 1000f
         }
@@ -154,7 +154,7 @@ class BadgeView constructor(context: Context) : View(context) {
     private fun initPaints() {
         mBadgeBgPaint.color = mBadgeBgColor
         mBadgeBgBorderPaint.color = mBgBorderColor
-        mBadgeBgBorderPaint.strokeWidth = mBgBorderWidth
+        mBadgeBgBorderPaint.strokeWidth = mBgBorderWidth.toFloat()
         mBadgeTextPaint.color = mBadgeTextColor
         mBadgeTextPaint.textAlign = Paint.Align.CENTER
     }
@@ -250,7 +250,7 @@ class BadgeView constructor(context: Context) : View(context) {
 
     private val badgeCircleRadius: Float
         private get() = if (mBadgeText?.isEmpty() == true) {
-            mBadgePadding
+            mBadgePadding.toFloat()
         } else if (mBadgeText?.length == 1) {
             if (mBadgeTextRect.height() > mBadgeTextRect.width()) mBadgeTextRect.height() / 2f + mBadgePadding * 0.5f else mBadgeTextRect.width() / 2f + mBadgePadding * 0.5f
         } else {
@@ -406,9 +406,9 @@ class BadgeView constructor(context: Context) : View(context) {
         return this
     }
 
-    fun stroke(color: Int, width: Float, isDpValue: Boolean): BadgeView {
+    fun stroke(color: Int, width: Int): BadgeView {
         mBgBorderColor = color
-        mBgBorderWidth = if (isDpValue) SizeUtils.dp2px(width).toFloat() else width
+        mBgBorderWidth = width
         invalidate()
         return this
     }
@@ -443,26 +443,26 @@ class BadgeView constructor(context: Context) : View(context) {
         return mBadgeTextColor
     }
 
-    fun setBadgeTextSize(size: Float, isSpValue: Boolean = true): BadgeView {
-        mBadgeTextSize = if (isSpValue) SizeUtils.dp2px(size).toFloat() else size
+    fun setBadgeTextSize(size: Float): BadgeView {
+        mBadgeTextSize = size
         measureText()
         invalidate()
         return this
     }
 
-    fun getBadgeTextSize(isSpValue: Boolean = true): Float {
-        return if (isSpValue) SizeUtils.px2dp(mBadgeTextSize).toFloat() else mBadgeTextSize
+    fun getBadgeTextSize(): Float {
+        return mBadgeTextSize
     }
 
-    fun setBadgePadding(padding: Float, isDpValue: Boolean = true): BadgeView {
-        mBadgePadding = if (isDpValue) SizeUtils.dp2px(padding).toFloat() else padding
+    fun setBadgePadding(padding: Int): BadgeView {
+        mBadgePadding = padding
         createClipLayer()
         invalidate()
         return this
     }
 
-    fun getBadgePadding(isDpValue: Boolean = true): Float {
-        return if (isDpValue) SizeUtils.px2dp(mBadgePadding).toFloat() else mBadgePadding
+    fun getBadgePadding(): Int {
+        return mBadgePadding
     }
 
     /**
@@ -491,23 +491,19 @@ class BadgeView constructor(context: Context) : View(context) {
         return mBadgeGravity
     }
 
-    fun setGravityOffset(offset: Float, isDpValue: Boolean = true): BadgeView {
-        return setGravityOffset(offset, offset, isDpValue)
-    }
-
-    fun setGravityOffset(offsetX: Float, offsetY: Float, isDpValue: Boolean = true): BadgeView {
-        mGravityOffsetX = if (isDpValue) SizeUtils.dp2px(offsetX).toFloat() else offsetX
-        mGravityOffsetY = if (isDpValue) SizeUtils.dp2px(offsetY).toFloat() else offsetY
+    fun setGravityOffset(offsetX: Int, offsetY: Int): BadgeView {
+        mGravityOffsetX = offsetX
+        mGravityOffsetY = offsetY
         invalidate()
         return this
     }
 
-    fun getGravityOffsetX(isDpValue: Boolean = true): Float {
-        return if (isDpValue) SizeUtils.px2dp(mGravityOffsetX).toFloat() else mGravityOffsetX
+    fun getGravityOffsetX(): Int {
+        return mGravityOffsetX
     }
 
-    fun getGravityOffsetY(isDpValue: Boolean = true): Float {
-        return if (isDpValue) SizeUtils.px2dp(mGravityOffsetY).toFloat() else mGravityOffsetY
+    fun getGravityOffsetY(): Int {
+        return mGravityOffsetY
     }
 
     private inner class BadgeContainer(context: Context?) : ViewGroup(context) {
