@@ -443,8 +443,8 @@ class BadgeView constructor(context: Context) : View(context) {
         return mBadgeTextColor
     }
 
-    fun setBadgeTextSize(size: Float): BadgeView {
-        mBadgeTextSize = size
+    fun setBadgeTextSize(size: Int): BadgeView {
+        mBadgeTextSize = size.toFloat()
         measureText()
         invalidate()
         return this
