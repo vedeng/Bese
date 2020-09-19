@@ -413,6 +413,7 @@ class AddressSelector(private val context: Context, private var loadPresenter: D
     override fun onItemClick(parent: AdapterView<*>?, view: View, position: Int, id: Long) {
         when (tabIndex) {
             INDEX_TAB_PROVINCE -> {
+                if (position < 0 || position >= provinceAdapter?.count ?: 0) return
                 selectProvince = provinceAdapter?.getItem(position) ?: Region()
                 updateTabUI(false)                     // 更新当前级别及子级标签文本
                 loadCitiesWith(selectProvince?.regionId)            //根据省份的id,查询城市列表
@@ -430,6 +431,7 @@ class AddressSelector(private val context: Context, private var loadPresenter: D
                 streetAdapter?.notifyDataSetChanged()
             }
             INDEX_TAB_CITY -> {
+                if (position < 0 || position >= cityAdapter?.count ?: 0) return
                 selectCity = cityAdapter?.getItem(position) ?: Region()
                 updateTabUI(false)
                 // 更新选中效果
@@ -448,6 +450,7 @@ class AddressSelector(private val context: Context, private var loadPresenter: D
                 }
             }
             INDEX_TAB_DISTRICT -> {
+                if (position < 0 || position >= districtAdapter?.count ?: 0) return
                 selectDistrict = districtAdapter?.getItem(position) ?: Region()
                 updateTabUI(false)
                 // 更新选中效果
@@ -462,6 +465,7 @@ class AddressSelector(private val context: Context, private var loadPresenter: D
                 }
             }
             INDEX_TAB_STREET -> {
+                if (position < 0 || position >= streetAdapter?.count ?: 0) return
                 selectStreet = streetAdapter?.getItem(position)
                 updateTabUI(false)
                 streetAdapter?.notifyDataSetChanged()
