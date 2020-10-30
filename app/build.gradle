@@ -103,9 +103,9 @@ dependencies {
     implementation "org.greenrobot:eventbus:3.2.0"
 
     // Lottie
-    implementation 'com.airbnb.android:lottie:3.4.0'
+    implementation 'com.airbnb.android:lottie:3.4.2'
 
     // 图片选择库
-    implementation 'com.github.vedeng:PicSelectFrame:1.5'
+    implementation 'com.github.vedeng:PicSelectFrame:1.5.1'
 
 }
