@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.*
 import android.widget.ImageView
 import android.widget.RelativeLayout
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
@@ -18,7 +19,6 @@ import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.bese.R
 import com.bese.view.photoview.PhotoView
-import com.bese.widget.button.TextButton
 import com.blankj.utilcode.util.FileUtils
 import com.blankj.utilcode.util.PathUtils
 import com.blankj.utilcode.util.ToastUtils
@@ -52,7 +52,7 @@ class PreviewDialog(
     private var preview: ViewPager? = null
     private var previewLayout: RelativeLayout? = null
     private var downloadIcon: ImageView? = null
-    private var numIndicator: TextButton? = null
+    private var numIndicator: TextView? = null
 
     private var mImageList = ArrayList<String?>()
 
@@ -69,14 +69,14 @@ class PreviewDialog(
         }
 
         override fun getCount(): Int {
-            return mImageList?.size ?: 1
+            return mImageList.size
         }
 
         override fun instantiateItem(container: ViewGroup, position: Int): Any {
             val view = PhotoView(mCtx)
             view.isEnableZoom = true
             view.scaleType = ImageView.ScaleType.FIT_CENTER
-            mCtx?.run { Glide.with(this).load(mImageList?.get(position)).into(view) }
+            mCtx?.run { Glide.with(this).load(mImageList[position]).into(view) }
             view.setOnClickListener {
                 dismiss()
             }
@@ -121,7 +121,7 @@ class PreviewDialog(
 
         previewLayout?.visibility = View.VISIBLE
 
-        if (currentPosition < (mImageList?.size ?: 1)) {
+        if (currentPosition < mImageList.size) {
             preview?.let {
                 it.pageMargin = (resources.displayMetrics.density * 10).toInt()
                 it.adapter = previewAdapter
@@ -145,20 +145,20 @@ class PreviewDialog(
 
                     override fun hasPermission(granted: MutableList<String>?, isAll: Boolean) {
                         ToastUtils.showShort(TIP_SAVING)
-                        Thread(Runnable { downloadPic(mImageList?.get(currentPosition)) }).start()
+                        Thread(Runnable { downloadPic(mImageList.get(currentPosition)) }).start()
                     }
                 })
         }
-        if (mImageList?.size ?: 1 > 1) {
+        if (mImageList.size > 1) {
             numIndicator?.visibility = View.VISIBLE
-            numIndicator?.text = "${currentPosition + 1}/${mImageList?.size ?: 1}"
+            numIndicator?.text = "${currentPosition + 1}/${mImageList.size}"
         }
         preview?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {}
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) { }
             override fun onPageSelected(position: Int) {
                 currentPosition = position
-                numIndicator?.text = "${position + 1}/${mImageList?.size ?: 1}"
+                numIndicator?.text = "${position + 1}/${mImageList.size}"
             }
         })
     }
