@@ -42,6 +42,8 @@ class ViewDialog(private val mCtx: Context?) {
 
     private var cancelable: Boolean = true
 
+    private var dismissListener: DismissListener? = null
+
     /**
      * 创建XDialog
      */
@@ -171,6 +173,13 @@ class ViewDialog(private val mCtx: Context?) {
         return this
     }
 
+    /**
+     * 设置弹窗消失监听
+     */
+    fun setDismissListener(listener: DismissListener?) {
+        this.dismissListener = listener
+    }
+
     fun build() {
         // 自定义视图
         if (mDialog == null && mCtx != null) {
@@ -217,6 +226,10 @@ class ViewDialog(private val mCtx: Context?) {
 
             // 绑定视图
             dialogView?.run { setContentView(this) }
+
+            dismissListener?.run {
+                mDialog?.setOnDismissListener { dismissListener?.doDismiss() }
+            }
 
             showDialog()
         }
