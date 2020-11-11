@@ -174,7 +174,7 @@ class ViewDialog(private val mCtx: Context?) {
     fun build() {
         // 自定义视图
         if (mDialog == null && mCtx != null) {
-            mDialog = Dialog(mCtx, if (dialogTheme > 0) dialogTheme else R.style.XDialog)
+            mDialog = Dialog(mCtx, if (dialogTheme != 0) dialogTheme else R.style.XDialog)
         }
         mDialog?.run {
             setCanceledOnTouchOutside(false)
