@@ -176,8 +176,9 @@ class ViewDialog(private val mCtx: Context?) {
     /**
      * 设置弹窗消失监听
      */
-    fun setDismissListener(listener: DismissListener?) {
+    fun setDismissListener(listener: DismissListener?): ViewDialog {
         this.dismissListener = listener
+        return this
     }
 
     fun build() {
