@@ -33,7 +33,10 @@ class ViewDialog(private val mCtx: Context?) {
     private var dialogLeftMargin: Int = getDp(40f)
     private var dialogRightMargin: Int = getDp(40f)
 
+    /** Dialog动画 */
     private var animationStyle: Int = -1
+    /** Dialog主题样式 */
+    private var dialogTheme: Int = 0
 
     private var dismissClickOutside: Boolean = false
 
@@ -153,17 +156,25 @@ class ViewDialog(private val mCtx: Context?) {
     }
 
     /**
-     * 设置弹窗动画样式：R.style.toast_animation
+     * 设置弹窗动画样式：R.anim.*
      */
     fun setAnimationStyle(animationStyle: Int): ViewDialog {
         this.animationStyle = animationStyle
         return this
     }
 
+    /**
+     * 设置弹窗主题样式：默认：R.style.XDialog
+     */
+    fun setDialogThemeStyle(theme: Int): ViewDialog {
+        this.dialogTheme = theme
+        return this
+    }
+
     fun build() {
         // 自定义视图
         if (mDialog == null && mCtx != null) {
-            mDialog = Dialog(mCtx, R.style.XDialog)
+            mDialog = Dialog(mCtx, if (dialogTheme > 0) dialogTheme else R.style.XDialog)
         }
         mDialog?.run {
             setCanceledOnTouchOutside(false)
