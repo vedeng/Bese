@@ -3,6 +3,7 @@ package com.bese.util
 import android.text.InputFilter
 import android.text.TextUtils
 import java.io.UnsupportedEncodingException
+import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.util.regex.Pattern
@@ -168,7 +169,7 @@ object StringUtil {
         return if (isDouble(price)) {
             val df = DecimalFormat("##0.00")
             df.roundingMode = RoundingMode.FLOOR
-            df.format(price.toDouble())
+            df.format(BigDecimal(price))
         } else {
             // 价格不符合价格规则，可以收集日志
             price
@@ -196,15 +197,15 @@ object StringUtil {
                     priceUnit = amount
                 } else if (pre.length <= 8) {
                     // 以万为单位处理
-                    var p = pre.toDouble()
-                    p /= 10000
+                    var p = BigDecimal(pre)
+                    p = p.divide(BigDecimal("10000"))
                     val df = DecimalFormat("##0.00")
                     df.roundingMode = RoundingMode.FLOOR
                     priceUnit = df.format(p) + "万"
                 } else {
                     // 以亿为单位处理，包括大于万亿以外的情况
-                    var p = pre.toDouble()
-                    p /= 100000000
+                    var p = BigDecimal(pre)
+                    p = p.divide(BigDecimal("100000000"))
                     val df = DecimalFormat("##0.00")
                     df.roundingMode = RoundingMode.FLOOR
                     priceUnit = df.format(p) + "亿"
